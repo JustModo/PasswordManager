@@ -1,0 +1,17 @@
+body {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    background-color: #add8e6;
+    margin-top: 25px;
+  
+    
+  }
+
+div {
+    height: 90vh;
+    width: 400px;
+    background-color: rgb(255, 255, 255);
+  }
+  
+  
