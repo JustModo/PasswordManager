@@ -1,17 +1,92 @@
-body {
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
-    background-color: #add8e6;
-    margin-top: 25px;
-  
-    
-  }
 
-div {
-    height: 90vh;
-    width: 400px;
-    background-color: rgb(255, 255, 255);
-  }
-  
-  
+body {
+  background-color: dimgrey;
+  display: flex;
+  margin-top: 25px;
+  align-items: center;
+  justify-content: center;
+  background-image: url("bg.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.wrapper {
+  display: flex;
+  width: 90vw;
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.container {
+  display: flex;
+  background-color: transparent;
+  backdrop-filter: blur(30px);
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 250px;
+  flex-direction: column;
+  padding: 70px;
+  padding-bottom: 80px;
+  box-shadow: 7px 7px 5px rgb(0, 0, 0, 0.5);
+  row-gap: 8px;
+  border-radius: 50px;
+  border-top: rgba(255, 255, 255, 0.2) 5px solid;
+  border-left: rgb(255, 255, 255, 0.2) 5px solid;
+}
+
+#login {
+  text-align: center;
+  font-family: 'Pixelify Sans', cursive;
+  font-size: 50px;
+  text-shadow: 2px 2px 5px grey;
+  color: white;
+  float: initial;
+}
+
+.input {
+  width: 300px;
+  height: 30px;
+  background-color: transparent;
+  color: white;
+  box-shadow: 2px 2px 3px rgb(0, 0, 0, 0.5);
+  border-top: rgba(255, 255, 255, 0.2) 2px solid;
+  border-left: rgb(255, 255, 255, 0.2) 2px solid;
+  border-radius: 10px;
+}
+
+#username {
+
+}
+
+.idiv {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  justify-content: center;
+  padding: 7px;
+}
+
+.buttons {
+  padding: 10px;
+}
+
+#loginb {
+  background-color: transparent;
+  color: white;
+  padding: 7px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 150px;
+  box-shadow: 2px 2px 5px rgb(0, 0, 0, 0.5);
+  translate: 0px -5px;
+  font-family: 'Pixelify Sans', cursive;
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+#loginb:focus {
+  background-color: grey;
+}
