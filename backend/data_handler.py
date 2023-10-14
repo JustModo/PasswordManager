@@ -264,13 +264,3 @@ class DataHandler:
             raise ValueError(f"No field {field_name} under entry {entry_name}")
         data[entry_name][field_name] = new_value
         self.write_data(data)
-
-
-def test():
-    #DataHandler.create_user("Kosh", "p")
-    d = DataHandler("Kosh", "p")
-    d.edit_field_value("Not Amazon", "p", "v")
-
-
-if __name__ == "__main__":
-    test()
