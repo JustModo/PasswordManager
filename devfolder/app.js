@@ -17,13 +17,12 @@ app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
 
-const secretKey = 'your-secret-key'; // Replace with a strong secret key for encoding the JWT token
+const secretKey = 'your-secret-key'; 
 
 app.post('/api/auth', (req, res) => {
     const { user_name, password } = req.body;
-
     // Check the username and password (for demonstration purposes, accept any non-empty values)
-    if (user_name && password) {
+    if (user_name==="Yash" && password==="123") {
         // Authentication successful, create a JWT token
         const token = jwt.sign({ user_name }, secretKey, { expiresIn: '1h' }); // Token expires in 1 hour
         res.json({ token });
