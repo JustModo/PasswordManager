@@ -86,3 +86,40 @@ Add User:-
         This will give a response status 200 with no data if login is done.
         This will return a 403 if the user gave wrong name or password.
 _____________________
+
+
+_____________________
+Get Data:-
+    URL:- /get_data
+
+    Method:- POST
+
+    Data:- None
+
+    Response:-
+        200 OK:-
+            Data:- All user data
+            Note:- 
+                data:- {
+                    entry_name: {
+                        field_name: field_value
+                    }
+                }
+        403 Forbidden:-
+            Data:- Text that can be directly displayed to the user
+            Note:- Not logged in
+
+
+    Example:-
+        {
+            "Amazon": {
+                "Username": "Kosh",
+                "Password": "Pass1234"
+            },
+            "Matrix": {
+                "Username": "Kosh",
+                "Email": "kosh@fake.com",
+                "id": "@kosh:matrix.com"
+            }
+        }
+_____________________

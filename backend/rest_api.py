@@ -1,9 +1,9 @@
 from os import mkdir, path
 from flask import Flask, request, send_file, abort, Response
 from werkzeug.datastructures import ImmutableMultiDict
-
-from data_handler import DataHandler
 import appdirs
+import json
+from data_handler import DataHandler
 
 
 app: Flask = Flask(__name__)
@@ -39,7 +39,7 @@ class QueryHandler:
     """
     This is the bridge between the frontend and DataHandler class
     """
-    __data_handler: DataHandler
+    __data_handler: DataHandler| None = None
 
     @staticmethod
     @app.post("/login")
@@ -103,6 +103,24 @@ class QueryHandler:
             )
 
         return Response(status=200)
+
+    @staticmethod
+    @app.post("/get_data")
+    def get_data() -> Response:
+        """
+        Return all user data
+        """
+        if QueryHandler.__data_handler is None:
+            return Response(
+                    "Not logged in",
+                    403,
+                    content_type="text/plain"
+            )
+        return Response(
+                json.dumps(QueryHandler.__data_handler.get_data()),
+                200,
+                content_type="application/json"
+        )
 
 import os
 from os import path
