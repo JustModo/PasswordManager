@@ -10,7 +10,11 @@ app: Flask = Flask(__name__)
 
 
 def handle_first_launched():
-    folder_path: str = appdirs.user_data_dir(appname="Unnamed_Password_Manager")
+    """
+    Makes sure everything is initialized correctly
+    """
+    folder_path: str = appdirs.user_data_dir()
+    folder_path = path.join(folder_path, "Unnamed_Password_Manager")
     if not path.exists(folder_path):
         mkdir(folder_path)
 
