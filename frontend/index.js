@@ -5,14 +5,12 @@ loginb.addEventListener("click", validateLogin);
 function validateName() {
 var name = document.getElementById("username").value;
     if(name=='' || name==null){
-        // console.log("falsevn");
             document.getElementById("errlabel").innerHTML = "Enter Username!";
             setTimeout(()=> {
                 document.getElementById("errlabel").innerHTML = "";
             },3000)
         return false;
     } else {
-        // console.log("truevn");
         return true;
     }
 }
@@ -20,14 +18,12 @@ var name = document.getElementById("username").value;
 function validatePass() {
     var pass = document.getElementById("password").value;
         if(pass=='' || pass==null){
-            // console.log("falsevp");
                 document.getElementById("errlabel").innerHTML = "Enter Password!";
             setTimeout(()=> {
                 document.getElementById("errlabel").innerHTML = "";
             },3000)
                 return false;
         } else {
-            // console.log("truevp");
             return true;
         }
     }
@@ -51,14 +47,14 @@ console.log(formData)
     try {
         const response = await fetch('/login', {
             method: "post",
-            /*headers: {
+            /* headers: {
                 'Content-Type': 'application/json'
             }*/
             body: formData
         });
         
         if(response.ok) {
-            //next page
+            window.location.href = "dashboard.html";
         } else if(!response.ok) {
             if (response.status === 403) {
                 const error = new Error('Access denied: You do not have permission to access this resource.');
@@ -66,17 +62,18 @@ console.log(formData)
                 setTimeout(()=> {
                     document.getElementById("errlabel").innerHTML = "";
                 },3000)
+                console.log(response)
                 throw error;
             }
         }
 
         //error
-        /*const errorData = await response.json();
+        const errorData = await response.json();
         if (response.status === 401) {
             throw new Error('Invalid username or password')
         } else {
             throw new Error(errorData.error)    
-        }*/
+        }
         
         // const data = await response.json();
         // const token = data.token;
@@ -91,8 +88,32 @@ console.log(formData)
             console.log("Failed Server")
         }
     }
-        
+
 }
+
+const register = document.getElementById("register");
+
+register.addEventListener("click", function(event) {
+    event.preventDefault();
+    window.location.href = "register.html";
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // function handleAuthRes(data) {
 //     if(data.token){
