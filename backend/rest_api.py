@@ -68,3 +68,34 @@ class QueryHandler:
             )
 
         return Response(status=200)
+
+    @staticmethod
+    @app.post("/add_user")
+    def add_user() -> Response:
+        """
+        Adds a new user
+        """
+        data: ImmutableMultiDict[str, str] = request.form
+        if "user_name" not in data:
+            return Response(
+                    "user_name not given",
+                    400,
+                    content_type="text/plain"
+            )
+        if "password" not in data:
+            return Response(
+                    "password is not given",
+                    400,
+                    content_type="text/plain"
+            )
+
+        try:
+            DataHandler.create_user(data["user_name"], data["password"])
+        except ValueError as value_error:
+            return Response(
+                    str(value_error),
+                    403,
+                    content_type="text/plain"
+            )
+
+        return Response(status=200)

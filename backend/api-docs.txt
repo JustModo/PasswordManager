@@ -24,7 +24,52 @@ Login:-
         403 Forbidden:-
             Content Type:- text/plain
             Note:- user_name or password is wrong, can display the response data to user.
-            Data:- What is wrong will be mentioned
+            Data:- What is wrong will be mentioned, text that can be displayed on the screen.
+
+    Example:-
+        formData = new FormData();
+        formData.append('name', 'John');
+        formData.append('password', 'John123');
+        fetch(
+            "/login",
+            {
+                body: formData,
+                method: "post"
+            }
+        );
+
+        This will give a response status 200 with no data if login is done.
+        This will return a 403 if the user gave wrong name or password.
+_____________________
+
+
+_____________________
+Add User:-
+    URL:- /add_user
+
+    Method:- POST
+
+    Data Type:- Form Data
+
+    Data content:- {
+            user_name: "<user name>",
+            password: "<password>"
+        }
+
+    Response:-
+        200 OK:-
+            Data:- No
+            Note:- Assume success.
+
+        400 Bad Request:-
+            Content Type:- text/plain
+            Note:- user_name or password not given a Form Data.
+            Data:- What is missing will be mentioned.
+
+        403 Forbidden:-
+            Content Type:- text/plain
+            Note:- user_name is exists, can display the response data to user.
+            Data:- Text that can be displayed on the screen.
 
     Example:-
         formData = new FormData();
