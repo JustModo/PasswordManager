@@ -1,11 +1,19 @@
+WARNING:-
+        Do NOT use this api for ANY reason EXCEPT if usage is ONLY local, i.e.,
+        this api is NOT built for usage over an external network and doing so
+        WILL NOT BE SECURE
+
+Note:- Server throws 405 METHOD NOT ALLOWED if the url is mistyped
 _____________________
 Login:-
+
+    WARNING:-
+            If login is used when another user is logged in,
+            the original user is automatically logged out.
+
     URL:- /login
-
     Method:- POST
-
     Data Type:- Form Data
-
     Data content:- {
             user_name: "<user name>",
             password: "<password>"
@@ -15,102 +23,111 @@ Login:-
         200 OK:-
             Data:- No
             Note:- Assume login completed.
-
         400 Bad Request:-
             Content Type:- text/plain
             Note:- user_name or password not given a Form Data.
             Data:- What is missing will be mentioned.
-
         403 Forbidden:-
             Content Type:- text/plain
             Note:- user_name or password is wrong, can display the response data to user.
             Data:- What is wrong will be mentioned, text that can be displayed on the screen.
 
     Example:-
-        formData = new FormData();
-        formData.append('name', 'John');
-        formData.append('password', 'John123');
+        formData = new FormData()
+        formData.append('user_name', 'John')
+        formData.append('password', 'John123')
         fetch(
             "/login",
             {
                 body: formData,
                 method: "post"
             }
-        );
-
+        )
         This will give a response status 200 with no data if login is done.
         This will return a 403 if the user gave wrong name or password.
+_____________________
+
+
+_____________________
+Logout:-
+    URL:- /logout
+    Method:- POST
+    Data:- None
+
+    Response:-
+        200 OK:-
+            Data:- No
+            Note:- Assume Success.
+        403 Forbidden:-
+            Content Type:- text/plain
+            Note:- User is not logged in.
+            Data:- What is wrong will be mentioned.
+                This text that can be displayed on the screen.
 _____________________
 
 
 _____________________
 Add User:-
     URL:- /add_user
-
     Method:- POST
-
     Data Type:- Form Data
-
     Data content:- {
             user_name: "<user name>",
             password: "<password>"
         }
+    Note:- Does not login the user
 
     Response:-
         200 OK:-
             Data:- No
             Note:- Assume success.
-
         400 Bad Request:-
             Content Type:- text/plain
             Note:- user_name or password not given a Form Data.
             Data:- What is missing will be mentioned.
-
         403 Forbidden:-
             Content Type:- text/plain
-            Note:- user_name is exists, can display the response data to user.
-            Data:- Text that can be displayed on the screen.
+            Note:- user_name exists, can display the response data to user.
+            Data:- What is wrong will be mentioned.
+                This text that can be displayed on the screen.
 
     Example:-
-        formData = new FormData();
-        formData.append('name', 'John');
-        formData.append('password', 'John123');
+        formData = new FormData()
+        formData.append('user_name', 'John')
+        formData.append('password', 'John123')
         fetch(
-            "/login",
+            "/add_user",
             {
                 body: formData,
                 method: "post"
             }
-        );
-
-        This will give a response status 200 with no data if login is done.
-        This will return a 403 if the user gave wrong name or password.
+        )
+        This will give a response status 200 with no data if a user is added.
+        This will return a 403 if the user gave a existing name.
 _____________________
 
 
 _____________________
 Get Data:-
     URL:- /get_data
-
     Method:- POST
-
     Data:- None
+    Prerequisites:- Login
 
     Response:-
         200 OK:-
-            Data:- All user data
-            Note:- 
-                data:- {
+            Data:- {
                     entry_name: {
                         field_name: field_value
                     }
                 }
+            Content Type:- text/json
         403 Forbidden:-
             Data:- Text that can be directly displayed to the user
             Note:- Not logged in
 
 
-    Example:-
+    Example Response:-
         {
             "Amazon": {
                 "Username": "Kosh",
@@ -123,3 +140,188 @@ Get Data:-
             }
         }
 _____________________
+
+
+_____________________
+Change Password:-
+    URL:- /change_password
+    Method:- POST
+    Data:- New Password
+    Prerequisites:- Login
+
+    Response:-
+        200 OK:-
+            Data:- None
+            Note:- Assume success
+        400 Bad Request:-
+            Data:- Error text
+            Content Type:- text/plain
+            Note:- password not given. :<
+        403 Forbidden:-
+            Data:- Text that can be directly displayed to the user
+            Content Type:- text/plain
+            Note:- Not logged in
+_____________________
+
+
+_____________________
+Add entry:-
+    URL:- /add_entry
+    Method:- POST
+    Data:- {
+        entry_name: "<entry_name>",
+        fields: {
+            field_name1: "<field_value1>",
+            field_name2: "<field_value2>",
+            ...
+        }
+    }
+    Prerequisites:- Login
+
+    Response:-
+        200 OK:-
+            Data:- None
+            Note:- Assume success
+        400 Bad Request:-
+            Data:- Error text
+            Content Type:- text/plain
+            Note:- entry_name or fields not given or fields cannot be converted to json
+        403 Forbidden:-
+            Data:- Text that can be directly displayed to the user
+            Content Type:- text/plain
+            Note:- Not logged in or entry_name already exists
+    
+    Example:-
+        formData = new FormData()
+        formData.append('entry_name', 'Amazon')
+        formData.append(
+            'fields',
+            JSON.stringify(
+                {
+                "User Name": "Kosh",
+                password: "1234"
+                }
+            )
+        )
+        fetch(
+            "/entry_name",
+            {
+                body: formData,
+                method: "post"
+            }
+        )
+        This will give a response status 200 with no data if the data is entered.
+        This will return a 403 if the user is not logged in or entry_name already exists.
+_____________________
+
+
+_____________________
+Delete Entry:-
+    URL:- /delete_entry
+    Method:- POST
+    Data:- entry_name
+    Prerequisites:- Login
+
+    Response:-
+        200 OK:-
+            Data:- None
+            Note:- Assume success
+        400 Bad Request:-
+            Data:- Error text
+            Content Type:- text/plain
+            Note:- entry_name not given
+        403 Forbidden:-
+            Data:- Text that can be directly displayed to the user
+            Content Type:- text/plain
+            Note:- Not logged in or entry_name does not exist
+_____________________
+
+
+_____________________
+Edit Entry Name:-
+    URL:- /edit_entry_name
+    Method:- POST
+    Data:- old_entry_name, new_entry_name
+    Prerequisites:- Login
+
+    Response:-
+        200 OK:-
+            Data:- None
+            Note:- Assume success
+        400 Bad Request:-
+            Data:- Error text
+            Content Type:- text/plain
+            Note:- old_entry_name or new_entry_name not given
+        403 Forbidden:-
+            Data:- Text that can be directly displayed to the user
+            Content Type:- text/plain
+            Note:- Not logged in or old_entry_name does not exist or new_entry_name exists
+_____________________
+
+
+_____________________
+Add Field:-
+    URL:- /add_field
+    Method:- POST
+    Data:- entry_name, field_name, field_value
+    Prerequisites:- Login
+
+    Response:-
+        200 OK:-
+            Data:- None
+            Note:- Assume success
+        400 Bad Request:-
+            Data:- Error text
+            Content Type:- text/plain
+            Note:- entry_name, field_name or field_value are
+            not given or fields cannot be converted to json
+        403 Forbidden:-
+            Data:- Text that can be directly displayed to the user
+            Content Type:- text/plain
+            Note:- Not logged in or field_name already exists or entry_name does not exist
+_____________________
+
+
+_____________________
+Edit Field Name:-
+    URL:- /edit_field_name
+    Method:- POST
+    Data:- entry_name, old_field_name, new_field_name
+    Prerequisites:- Login
+
+    Response:-
+        200 OK:-
+            Data:- None
+            Note:- Assume success
+        400 Bad Request:-
+            Data:- Error text
+            Content Type:- text/plain
+            Note:- old_field_name or new_field_name not given
+        403 Forbidden:-
+            Data:- Text that can be directly displayed to the user
+            Content Type:- text/plain
+            Note:- Not logged in or old_field_name does not exist or new_field_name exists
+_____________________
+
+
+_____________________
+Edit Field Value:-
+    URL:- /edit_field_value
+    Method:- POST
+    Data:- entry_name, field_name, field_value
+    Prerequisites:- Login
+
+    Response:-
+        200 OK:-
+            Data:- None
+            Note:- Assume success
+        400 Bad Request:-
+            Data:- Error text
+            Content Type:- text/plain
+            Note:- entry_name, field_name or field_value not given
+        403 Forbidden:-
+            Data:- Text that can be directly displayed to the user
+            Content Type:- text/plain
+            Note:- Not logged in or field_name does not exist
+_____________________
+
