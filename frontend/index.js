@@ -52,15 +52,19 @@ console.log(formData)
 =======
         const response = await fetch('/login', {
             method: "post",
+<<<<<<< HEAD
             /*headers: {
 >>>>>>> b1b896f (Add api request changes)
+=======
+            /* headers: {
+>>>>>>> 22cbef5 (Add all other pages)
                 'Content-Type': 'application/json'
             }*/
             body: formData
         });
         
         if(response.ok) {
-            //next page
+            window.location.href = "dashboard.html";
         } else if(!response.ok) {
             if (response.status === 403) {
                 const error = new Error('Access denied: You do not have permission to access this resource.');
@@ -68,17 +72,18 @@ console.log(formData)
                 setTimeout(()=> {
                     document.getElementById("errlabel").innerHTML = "";
                 },3000)
+                console.log(response)
                 throw error;
             }
         }
 
         //error
-        /*const errorData = await response.json();
+        const errorData = await response.json();
         if (response.status === 401) {
             throw new Error('Invalid username or password')
         } else {
             throw new Error(errorData.error)    
-        }*/
+        }
         
         // const data = await response.json();
         // const token = data.token;
@@ -99,9 +104,10 @@ console.log(formData)
         }
 >>>>>>> b1b896f (Add api request changes)
     }
-        
+
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 function handleAuthRes(data) {
     if(data.token){
@@ -112,6 +118,32 @@ function handleAuthRes(data) {
     }
 }
 =======
+=======
+const register = document.getElementById("register");
+
+register.addEventListener("click", function(event) {
+    event.preventDefault();
+    window.location.href = "register.html";
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> 22cbef5 (Add all other pages)
 // function handleAuthRes(data) {
 //     if(data.token){
 //         localStorage.setItem('token', data.token);
