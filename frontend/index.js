@@ -38,70 +38,37 @@ function validateLogin() {
 async function getAuth() {
 let _username = document.getElementById("username").value;
 let _password = document.getElementById("password").value;
-
-formData = new FormData();
-formData.append('user_name', _username);
-formData.append('password', _password);
-
     try {
-        const response = await fetch('/login', {
-            method: "post",
-            body: formData
+        const response = await fetch('http://127.0.0.1:5000/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user_name: _username,
+                password: _password
+            })
         });
         
-        if(response.ok) {
-            window.location.href = "dashboard.html";
-        } else if(!response.ok) {
-            const errorMessage = await response.text();
-            document.getElementById("errlabel").innerHTML = errorMessage;
-                setTimeout(()=> {
-                    document.getElementById("errlabel").innerHTML = "";
-                },3000)
-            throw new Error(errorMessage);
+        if(!response.ok) {
+            throw new Error('Connection was not Ok!');
         }
-        
-        // const data = await response.json();
-        // const token = data.token;
-        // console.log(`Got token: ${token}`)
-        // console.log(data)
-        // handleAuthRes(data);
 
+        const data = await response.json();
+        const token = data.token;
 
+        console.log(`Got token: ${token}`)
     } catch (error) {
         console.error('Error:', error.message);
     }
-
+        
 }
 
-const register = document.getElementById("register");
-
-register.addEventListener("click", function(event) {
-    event.preventDefault();
-    window.location.href = "register.html";
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function handleAuthRes(data) {
-//     if(data.token){
-//         localStorage.setItem('token', data.token);
-//         console.log("Logged In...")
-//     } else {
-//         console.error('Login Failed:', data.error)
-//     }
-// }
+function handleAuthRes(data) {
+    if(data.token){
+        localStorage.setItem('token', token.data);
+        console.log("Logged In...")
+    } else {
+        console.error('Login Failed:', data.error)
+    }
+}
