@@ -29,8 +29,8 @@ body {
   backdrop-filter: blur(20px);
   justify-content: center;
   align-items: center;
-  width: 500px;
-  height: 450px;
+  width: 450px;
+  height: 400px;
   flex-direction: column;
   padding: 70px;
   padding-bottom: 90px;
@@ -155,4 +155,9 @@ footer{
   background-color: rgb(12, 12, 12);
   height: 50px;
   width: 100vw;
+}
+
+footer p{
+  color: white;
+  text-align: center;
 }
