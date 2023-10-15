@@ -21,7 +21,7 @@ def handle_first_launched():
              
 
 @app.get("/")
-@app.get("/<url_path>")
+@app.get("/<path:url_path>")
 def handle_get(url_path: str = "index.html") -> Response:
     """
     Handle all get requests that are made.
