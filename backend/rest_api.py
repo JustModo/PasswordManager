@@ -1,11 +1,19 @@
-from os import path
+from os import mkdir, path
 from flask import Flask, request, send_file, abort, Response
 from werkzeug.datastructures import ImmutableMultiDict
 
 from data_handler import DataHandler
+import appdirs
 
 
 app: Flask = Flask(__name__)
+
+
+def handle_first_launched():
+    folder_path: str = appdirs.user_data_dir(appname="Unnamed_Password_Manager")
+    if not path.exists(folder_path):
+        mkdir(folder_path)
+
 
 @app.get("/")
 @app.get("/<url_path>")
@@ -13,6 +21,7 @@ def handle_get(url_path: str = "index.html") -> Response:
     """
     Handle all get requests that are made.
     """
+    handle_first_launched()
     requested_file_path: str = \
             path.abspath(path.join(path.curdir, "..", "frontend", url_path))
     response: Response = send_file(requested_file_path)

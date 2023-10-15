@@ -1,7 +1,3 @@
-WARNING:-
-    This api is not yet capable of handling any exceptions that may arise when opened for the first time
-
-
 _____________________
 Login:-
     URL:- /login
