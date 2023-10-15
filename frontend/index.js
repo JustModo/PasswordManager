@@ -43,7 +43,7 @@ async function getAuth() {
 let _username = document.getElementById("username").value;
 let _password = document.getElementById("password").value;
     try {
-        const response = await fetch('http://127.0.0.1:5000/', {
+        const response = await fetch('http://127.0.0.1:5000/api/auth', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -62,6 +62,8 @@ let _password = document.getElementById("password").value;
         const token = data.token;
 
         console.log(`Got token: ${token}`)
+        console.log(data)
+        handleAuthRes(data);
     } catch (error) {
         console.log('Error', error);
     }
@@ -70,7 +72,7 @@ let _password = document.getElementById("password").value;
 
 function handleAuthRes(data) {
     if(data.token){
-        localStorage.setItem('token', token.data);
+        localStorage.setItem('token', data.token);
         console.log("Logged In...")
     } else {
         console.error('Login Failed:', data.error)
