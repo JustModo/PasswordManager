@@ -1,6 +1,4 @@
 let loginb = document.getElementById("loginb");
-let _username;
-let _password;
 
 loginb.addEventListener("click", validateLogin);
 
@@ -36,32 +34,38 @@ function validatePass() {
 
 function validateLogin() {
     if(validateName() && validatePass()) {
-        getLD();
+        getAuth();
         return;
     }
 }
 
-function getLD() {
-    _username = document.getElementById("username").value;
-    _mpassword = document.getElementById("password").value;
-    let loginData = {
-        user_name: _username,
-        password: _password
+async function getAuth() {
+let _username = document.getElementById("username").value;
+let _password = document.getElementById("password").value;
+    try {
+        const response = await fetch('http://127.0.0.1:5000/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user_name: _username,
+                password: _password
+            })
+        });
+        
+        if(!response.ok) {
+            throw new Error('Connection was not Ok!');
+        }
+
+        const data = await response.json();
+        const token = data.token;
+
+        console.log(`Got token: ${token}`)
+    } catch (error) {
+        console.log('Error', error);
     }
-    fetch('http://127.0.0.1:5000', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(loginData)
-    })
-    .then(res => {
-        return res.json()
-    })
-    .then(data => {
-        handleAuthRes(data);
-    })
-    .catch(error => console.log(`You have ${error}`))
+        
 }
 
 function handleAuthRes(data) {
