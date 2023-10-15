@@ -54,7 +54,8 @@ class DataHandler:
         WARNING:-
             If this is the first time the app is opened, the user_name will be shown as wrong
         """
-        self.__file_path = appdirs.user_data_dir(appname="Unnamed_Password_Manager")
+        self.__file_path = appdirs.user_data_dir()
+        self.__file_path = path.join(self.__file_path, "Unnamed_Password_Manager")
         self.__user_name = user_name
         self.__file_path = path.join(self.__file_path, self.__user_name)
         self.__password = password
@@ -77,7 +78,8 @@ class DataHandler:
             If user_name exists, ValueError is thrown
         """
         file_path = path.join(
-                appdirs.user_data_dir(appname="Unnamed_Password_Manager"),
+                appdirs.user_data_dir(),
+                "Unnamed_Password_Manager",
                 user_name
         )
         if path.exists(file_path):
