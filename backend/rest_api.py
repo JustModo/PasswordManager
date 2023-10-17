@@ -13,7 +13,7 @@ def handle_first_launched():
     folder_path: str = appdirs.user_data_dir(appname="Unnamed_Password_Manager")
     if not path.exists(folder_path):
         mkdir(folder_path)
-
+             
 
 @app.get("/")
 @app.get("/<url_path>")
@@ -99,3 +99,11 @@ class QueryHandler:
             )
 
         return Response(status=200)
+
+import os
+from os import path
+
+@app.route('/favicon.ico')
+def favicon():
+    favicon_path = os.path.join(app.root_path, 'static', 'favicon.ico')
+    return send_file(favicon_path, mimetype='image/vnd.microsoft.icon')  
