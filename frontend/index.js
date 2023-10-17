@@ -47,32 +47,18 @@ console.log(formData)
     try {
         const response = await fetch('/login', {
             method: "post",
-            /* headers: {
-                'Content-Type': 'application/json'
-            }*/
             body: formData
         });
         
         if(response.ok) {
             window.location.href = "dashboard.html";
         } else if(!response.ok) {
-            if (response.status === 403) {
-                const error = new Error('Access denied: You do not have permission to access this resource.');
-                    document.getElementById("errlabel").innerHTML = "Invalid Details!";
+            const errorMessage = await response.text();
+            document.getElementById("errlabel").innerHTML = errorMessage;
                 setTimeout(()=> {
                     document.getElementById("errlabel").innerHTML = "";
                 },3000)
-                console.log(response)
-                throw error;
-            }
-        }
-
-        //error
-        const errorData = await response.json();
-        if (response.status === 401) {
-            throw new Error('Invalid username or password')
-        } else {
-            throw new Error(errorData.error)    
+            throw new Error(errorMessage);
         }
         
         // const data = await response.json();
@@ -83,10 +69,7 @@ console.log(formData)
 
 
     } catch (error) {
-        console.log(error);
-        if(error instanceof TypeError && error.message === 'Failed to fetch'){
-            console.log("Failed Server")
-        }
+        console.error('Error:', error.message);
     }
 
 }

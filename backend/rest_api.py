@@ -18,7 +18,12 @@ def handle_first_launched():
     folder_path = path.join(folder_path, "Unnamed_Password_Manager")
     if not path.exists(folder_path):
         mkdir(folder_path)
+             
 
+@app.route('/favicon.ico')
+def favicon():
+    favicon_path = path.join(app.root_path, '../frontend/static', 'favicon.ico')
+    return send_file(favicon_path, mimetype='image/vnd.microsoft.icon')  
 
 @app.get("/")
 @app.get("/<path:url_path>")
