@@ -53,6 +53,7 @@ console.log(formData)
         const response = await fetch('/login', {
             method: "post",
 <<<<<<< HEAD
+<<<<<<< HEAD
             /*headers: {
 >>>>>>> b1b896f (Add api request changes)
 =======
@@ -60,29 +61,20 @@ console.log(formData)
 >>>>>>> 22cbef5 (Add all other pages)
                 'Content-Type': 'application/json'
             }*/
+=======
+>>>>>>> d7982e1 (Add error message to login, Fix Internal Error 500)
             body: formData
         });
         
         if(response.ok) {
             window.location.href = "dashboard.html";
         } else if(!response.ok) {
-            if (response.status === 403) {
-                const error = new Error('Access denied: You do not have permission to access this resource.');
-                    document.getElementById("errlabel").innerHTML = "Invalid Details!";
+            const errorMessage = await response.text();
+            document.getElementById("errlabel").innerHTML = errorMessage;
                 setTimeout(()=> {
                     document.getElementById("errlabel").innerHTML = "";
                 },3000)
-                console.log(response)
-                throw error;
-            }
-        }
-
-        //error
-        const errorData = await response.json();
-        if (response.status === 401) {
-            throw new Error('Invalid username or password')
-        } else {
-            throw new Error(errorData.error)    
+            throw new Error(errorMessage);
         }
         
         // const data = await response.json();
@@ -98,11 +90,15 @@ console.log(formData)
         console.error('Error:', error.message);
 =======
     } catch (error) {
+<<<<<<< HEAD
         console.log(error);
         if(error instanceof TypeError && error.message === 'Failed to fetch'){
             console.log("Failed Server")
         }
 >>>>>>> b1b896f (Add api request changes)
+=======
+        console.error('Error:', error.message);
+>>>>>>> d7982e1 (Add error message to login, Fix Internal Error 500)
     }
 
 }

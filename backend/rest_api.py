@@ -19,6 +19,14 @@ def handle_first_launched():
     if not path.exists(folder_path):
         mkdir(folder_path)
              
+<<<<<<< HEAD
+=======
+
+@app.route('/favicon.ico')
+def favicon():
+    favicon_path = path.join(app.root_path, '../frontend/static', 'favicon.ico')
+    return send_file(favicon_path, mimetype='image/vnd.microsoft.icon')  
+>>>>>>> d7982e1 (Add error message to login, Fix Internal Error 500)
 
 @app.get("/")
 @app.get("/<path:url_path>")
