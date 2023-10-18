@@ -42,7 +42,6 @@ let _password = document.getElementById("password").value;
 formData = new FormData();
 formData.append('user_name', _username);
 formData.append('password', _password);
-console.log(formData)
 
     try {
         const response = await fetch('/login', {
