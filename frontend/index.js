@@ -38,26 +38,20 @@ function validateLogin() {
 async function getAuth() {
 let _username = document.getElementById("username").value;
 let _password = document.getElementById("password").value;
-
-formData = new FormData();
-formData.append('user_name', _username);
-formData.append('password', _password);
-
     try {
-        const response = await fetch('/login', {
-            method: "post",
-            body: formData
+        const response = await fetch('http://127.0.0.1:5000/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user_name: _username,
+                password: _password
+            })
         });
         
-        if(response.ok) {
-            window.location.href = "dashboard.html";
-        } else if(!response.ok) {
-            const errorMessage = await response.text();
-            document.getElementById("errlabel").innerHTML = errorMessage;
-                setTimeout(()=> {
-                    document.getElementById("errlabel").innerHTML = "";
-                },3000)
-            throw new Error(errorMessage);
+        if(!response.ok) {
+            throw new Error('Connection was not Ok!');
         }
         
         // const data = await response.json();
