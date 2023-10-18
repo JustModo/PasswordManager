@@ -8,10 +8,11 @@ body {
   margin-top: 25px;
   align-items: center;
   justify-content: center;
-  background-image: url("bg.jpg");
-  background-size: 200% auto;
+  background-image: url("../assets/bg.jpg");
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-attachment: fixed
 }
 
 .wrapper {

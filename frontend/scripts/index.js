@@ -46,6 +46,7 @@ console.log(formData)
 
     try {
 <<<<<<< HEAD
+<<<<<<< HEAD
         const response = await fetch('http://127.0.0.1:5000/', {
             method: 'POST',
             headers: {
@@ -63,6 +64,10 @@ console.log(formData)
             }*/
 =======
 >>>>>>> d7982e1 (Add error message to login, Fix Internal Error 500)
+=======
+        const response = await fetch('/login', {
+            method: "post",
+>>>>>>> a260428 (Dashboard Entry Update)
             body: formData
         });
         
@@ -119,7 +124,7 @@ const register = document.getElementById("register");
 
 register.addEventListener("click", function(event) {
     event.preventDefault();
-    window.location.href = "register.html";
+    window.location.href = "../html/register.html";
 });
 
 
@@ -148,4 +153,7 @@ register.addEventListener("click", function(event) {
 //         console.error('Login Failed:', data.error)
 //     }
 // }
+<<<<<<< HEAD
 >>>>>>> b1b896f (Add api request changes)
+=======
+>>>>>>> a260428 (Dashboard Entry Update)
