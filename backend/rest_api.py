@@ -21,9 +21,16 @@ def handle_first_launched():
              
 
 @app.route('/favicon.ico')
-def favicon():
-    favicon_path = path.join(app.root_path, '../frontend/static', 'favicon.ico')
+def favicon() -> Response:
+    favicon_path: str = path.join(app.root_path, '../frontend/static', 'favicon.ico')
     return send_file(favicon_path, mimetype='image/vnd.microsoft.icon')  
+
+
+@app.route("/index.html")
+def handle_index() -> Response:
+    index_path: str = path.join(app.root_path, "../frontend/html", "index.html")
+    return send_file(index_path, mimetype="text/html")
+
 
 @app.get("/")
 @app.get("/<path:url_path>")
