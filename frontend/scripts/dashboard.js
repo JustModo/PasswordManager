@@ -18,6 +18,7 @@ async function getData() {
                 getFieldName(userdata)
             } else if(!response.ok) {
                 const errorMessage = await response.text();
+                window.location.href = "../html/index.html";
                 throw new Error(errorMessage);
             }
         } catch (error) {
@@ -33,7 +34,7 @@ function updateListGui(field) {
         let content = contentbox.innerHTML.concat(
             `
             <div>
-            <img src="${field["url"]}">
+            <img src="${field["url"]}" onerror="this.onerror=null; this.src='../assets/internet.svg'">
             <p>${field["fieldname"]}</p>
              <button id="${field["fieldname"]}" class="entrybutton"> Show </button>
             </div>
@@ -128,6 +129,36 @@ function updateInfoGui(call) {
 }
 
 //-----------------------------------------------------------------------------------------
+
+async function logOut() {
+    try{
+        await fetch("/logout", {
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({})
+        })
+        window.location.href = "../html/index.html";
+    } catch(err) {
+        console.log(err)
+    }
+}
+
+const logoutbtn = document.querySelector("#logout")
+
+logoutbtn.addEventListener('click', () => {
+    console.log("logging out")
+    logOut()
+})
+
+
+//-----------------------------------------------------------------------------------------
+
+// window.addEventListener('unload', function() {
+//     logOut()
+// });
+
 
 window.onload = function() {
     getData();
