@@ -29,8 +29,9 @@ body {
   background-color: rgb(0, 255, 255,0.2);
   backdrop-filter: blur(15px);
   border-radius: 30px;
-  width: 90vw;
-  height: 80vh;
+  position: relative;
+  width: 1100px;
+  height: 600px;
   box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.8);
   overflow: hidden;
 }
@@ -56,6 +57,8 @@ footer p{
   border-radius: 20px;
   height: 85%;
   width: 40%;
+  /* height: 70vh;
+  width: 40vw; */
   justify-content: center;
   align-items: center;
 }
@@ -84,12 +87,35 @@ footer p{
   padding-right: 40px;
 }
 
-.searchbar img {
-  display: block;
+.searchbar button {
+  background-image: url("../assets/search.svg");
+  background-size: cover;
+  background-position: center;
+  display: inline-block;
   position: absolute;
-  top: 24%;
+  top: 20%;
   right: 25px;
-  width: 25px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.searchbar button:hover {
+  background-image: url(../assets/search2.svg);
+}
+
+.searchbar button:not(:hover) {
+  background-image: url(../assets/search.svg);
+}
+
+.searchbar:hover{
+  box-shadow: 0, 0, 5px;
+}
+
+.searchbar:not(:hover){
+  box-shadow: none;
 }
 
 .objcontainer {
@@ -109,14 +135,16 @@ footer p{
 }
 
 .objcontainer div{
+  display: flex;
   padding: 20px;
   width: 90%;
-  height: 200px;
+  height: 50px;
   background-color: rgb(255, 255, 255, 0.5);
-  text-align: center;
+  text-align: left;
   box-shadow: 0 0 10px black;
   border: rgba(0, 255, 255, 0.5) 1px solid;
   overflow: hidden;
+  align-items: center;
 }
 
 .objcontainer div:hover {
@@ -125,6 +153,35 @@ footer p{
 
 .objcontainer div:not(:hover) {
   background-color: rgb(255, 255, 255, 0.5);
+}
+
+.objcontainer div button{
+  position: absolute;
+  right: 40px;
+  background-color: hsl(0, 0%, 100%, 0.5);
+  border-radius: 10px;
+  padding: 5px;
+  font-weight: bold;
+  box-shadow: 0 0 5px;
+  cursor: pointer;
+}
+
+.objcontainer div button:hover{
+  background-color: rgb(128, 128, 128, 0.7);
+}
+
+.objcontainer div button:not(:hover){
+  background-color: hsl(0, 0%, 100%, 0.5);
+}
+
+.objcontainer div img{
+  width: 30px;
+}
+
+.objcontainer div p{
+  padding-left: 20px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: bold;
 }
 
 .querybox {
@@ -171,4 +228,12 @@ footer p{
 
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(0, 0%, 33%); 
+}
+
+@media (max-width: 860px) {
+  .container{
+    position: fixed;
+    width: 774px;
+  }
+
 }
