@@ -72,7 +72,7 @@ console.log(formData)
         });
         
         if(response.ok) {
-            window.location.href = "dashboard.html";
+            window.location.href = "../html/dashboard.html";
         } else if(!response.ok) {
             const errorMessage = await response.text();
             document.getElementById("errlabel").innerHTML = errorMessage;
