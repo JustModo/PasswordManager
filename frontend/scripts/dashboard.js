@@ -1,7 +1,5 @@
 
 //-----------------------------------------------------------------------------------------(Getting Data)
-let globaldata;
-
 
 async function getData() {
         try {
@@ -14,8 +12,7 @@ async function getData() {
             
             if(response.ok) {
                 let userdata = await response.json();
-                //console.log(userdata)
-                globaldata = userdata
+                localStorage.setItem("userdata", JSON.stringify(userdata));
                 getFieldName(userdata)
             } else if(!response.ok) {
                 const errorMessage = await response.text();
@@ -109,9 +106,7 @@ search.addEventListener('keyup', function() {
     if(result == ""){
         getData()
     } else {
-        getFilterList(result,globaldata)
-        //console.log(result);
-        
+        getFilterList(result,JSON.parse(localStorage.getItem("userdata")))  
     }
 });
 
@@ -169,7 +164,93 @@ function addFieldLogic() {
 function submitForm() {
     const form = document.getElementById('formdata')
     const formdata = new FormData(form)
-    console.log(formdata)
+    formatData(formdata)
+}
+
+function formatData(userdata) {
+    const formData = new FormData()
+    const objData = {}
+    let sitename;
+    userdata.forEach((value, key)=>{
+        if(key == 'sitename'){
+            sitename = value;
+        }else {
+            objData[key] = value;
+        }
+    })
+    formData.append("entry_name", sitename)
+    formData.append("fields", JSON.stringify(objData))
+    // jsondata[sitename] = jsonuserdata
+    // sendData(JSON.stringify(jsondata))
+    console.log(sitename)
+    sendData(formData)
+}
+
+//----------------------------------------------------------------------------------------- Post Entry Data to API
+
+const errorlabel = document.querySelector('.fieldcontainer label')
+
+async function sendData(formData){
+    try {
+        const response = await fetch('/add_entry', {
+            method: "POST",
+            body: formData 
+        });
+        if(response.ok){
+            getData()
+        }
+        if(!response.ok){
+            const errorMessage = await response.text();
+                errorlabel.textContent = errorMessage
+                setTimeout(()=>{
+                    errorlabel.textContent = ''
+                },3000)
+                throw new Error(errorMessage);
+        }
+    } catch(error){
+        console.error(error)
+    }     
+}
+
+//----------------------------------------------------------------------------------------- Form Data Validation Logic
+
+function validateData() {
+    if(validateSitename() && validateUrl())
+        submitForm();
+        return;
+}
+
+function validateSitename(){
+    const sitename = document.getElementById('sitenamefield').value
+    if(sitename =='' || sitename == null){
+        errorlabel.textContent = "Enter Sitename!"
+        setTimeout(()=>{
+            errorlabel.textContent = ''
+        },3000)
+        return false;
+    } else{
+        return true;
+    }
+}
+
+function validateUrl(){
+    const url = document.getElementById('urlfield').value
+    const urlPattern = /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
+    if(url == '' || url ==null){
+        errorlabel.textContent = "Enter URL!"
+        setTimeout(()=>{
+            errorlabel.textContent = ''
+        },3000)
+        return false;
+    }else if(!urlPattern.test(url)){
+        errorlabel.textContent = "Enter Valid URL!"
+        setTimeout(()=>{
+            errorlabel.textContent = ''
+        },3000)
+        return false;
+    }else{
+        return true;
+    }
 }
 
 
