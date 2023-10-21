@@ -82,6 +82,26 @@ register.addEventListener("click", function(event) {
 });
 
 
+window.onload = async function() {
+    try {
+        let response = await fetch('/get_data', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            }
+        });
+        
+        if(response.ok) {
+            window.location.href = "../html/dashboard.html";
+        } else if(!response.ok) {
+            const errorMessage = await response.text();
+            throw new Error(errorMessage);
+        }
+    } catch (error) {
+        console.error("Not Logged In..")
+
+    }
+};
 
 
 
