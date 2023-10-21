@@ -35,9 +35,12 @@ function validateLogin() {
     }
 }
 
+
 async function getAuth() {
 let _username = document.getElementById("username").value;
 let _password = document.getElementById("password").value;
+
+localStorage.setItem("username", _username);
 
 formData = new FormData();
 formData.append('user_name', _username);
@@ -73,6 +76,7 @@ console.log(formData)
     }
 
 }
+
 
 const register = document.getElementById("register");
 
