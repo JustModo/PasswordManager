@@ -35,9 +35,12 @@ function validateLogin() {
     }
 }
 
+
 async function getAuth() {
 let _username = document.getElementById("username").value;
 let _password = document.getElementById("password").value;
+
+localStorage.setItem("username", _username);
 
 formData = new FormData();
 formData.append('user_name', _username);
@@ -110,6 +113,7 @@ console.log(formData)
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 function handleAuthRes(data) {
     if(data.token){
         localStorage.setItem('token', token.data);
@@ -120,6 +124,9 @@ function handleAuthRes(data) {
 }
 =======
 =======
+=======
+
+>>>>>>> 106888c (Add input boxes for Add entry page)
 const register = document.getElementById("register");
 
 register.addEventListener("click", function(event) {

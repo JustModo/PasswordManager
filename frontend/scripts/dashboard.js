@@ -2,6 +2,7 @@
 //-----------------------------------------------------------------------------------------(Getting Data)
 let globaldata;
 
+
 async function getData() {
         try {
             let response = await fetch('/get_data', {
@@ -149,6 +150,14 @@ function updateInfoGui(call) {
     console.log(call)
 }
 
+const greettext = document.querySelector('#greetname')
+const masterusername = localStorage.getItem("username");
+console.log(masterusername)
+
+function greet(){
+    greettext.textContent = masterusername;
+}
+
 //-----------------------------------------------------------------------------------------
 
 async function logOut() {
@@ -183,4 +192,8 @@ logoutbtn.addEventListener('click', () => {
 
 window.onload = function() {
     getData();
+    greet()
+    
+    entrywindow.classList.toggle("hidden");
+    entrywindow.style.display = "flex";
 };

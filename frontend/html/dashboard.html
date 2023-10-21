@@ -185,10 +185,16 @@ p<!DOCTYPE html>
 
                 <div class="buttonbox">
                     <div class="buttonpanel">
-                        <p>Welcome</p>
+
+                        <div>
+                            <p>Welcome,</p>
+                            <p id="greetname"></p>
+                        </div>
+
                         <div>
                             <button id="addentry"></button>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -200,9 +206,40 @@ p<!DOCTYPE html>
 
         <div id="entrycontainer" class="hidden">
             <div class="addentrydiv">
+
                 <div>
                     <button id="backbtn"></button>
                 </div>
+
+                <div class="fieldcontainer">
+                    <form>
+                        <div>
+                            <input type="text" name="sitename" placeholder="Site Name">
+                            <input type="text" name="url" placeholder="Site URL">
+                            <button type="button"></button>
+                        </div>
+    
+                        <div class="inputfieldpanel">
+                            <div>
+                                <input type="checkbox" id="checkbox">
+                                <input type="text" name="Username" placeholder="Username"><br>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="checkbox">
+                                <input type="text" name="Password" placeholder="Password"><br>
+                            </div>
+                            <div> 
+                                <input type="checkbox" id="checkbox">
+                                <input type="text" name="Email" placeholder="Email Address"><br>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="checkbox">
+                                <input type="text" name="PhNumber" placeholder="Phone Number"><br>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
             </div>
         </div>
 
