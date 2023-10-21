@@ -23,6 +23,13 @@ body {
   justify-content: center;
 }
 
+.innerwrapper {
+  height: 90%;
+  width: 90%;
+  padding: 10px;
+  position: relative;
+}
+
 .container {
   display: flex;
   align-items: center;
@@ -50,6 +57,8 @@ footer p{
   text-align: center;
 }
 
+/*----------------------------------------------------------------------------------------*/
+
 .contentbox {
   display: flex;
   position: absolute;
@@ -63,7 +72,10 @@ footer p{
   align-items: center;
   max-height: 100%;
   overflow: auto;
+  box-shadow: 0 0 10px;
 }
+
+/*----------------------------------------------------------------------------------------*/
 
 .searchbar {
   display: flex;
@@ -71,38 +83,42 @@ footer p{
   align-items: center;
   position: absolute; 
   overflow: hidden;
-  top: 20px;
+  top: 15px;
   width: 90%;
-  height: 10%;
-  background-color: rgb(255, 255, 255, 0.8);
-  border-radius: 10px 10px 0 0;
+  height: 11%;
+  background-color: rgb(255, 255, 255, 0.5);
+  border-radius: 10px;
+  padding: 10px;
+  flex-shrink: 0;
 }
 
 .searchbar input {
-  width: 95%;
-  height: 80%;
+  width: 88%;
+  height: 65%;
   border: blue 2px slateblue;
   box-shadow: none;
   background-color: rgb(255, 255, 255, 0.5);
   border-radius: 20px;
   padding-left: 20px;
   padding-right: 40px;
+  position: absolute;
+  left:20px;
 }
 
-.searchbar button {
+/* .searchbar button {
   background-image: url("../assets/search.svg");
   background-size: cover;
   background-position: center;
   display: inline-block;
   position: absolute;
-  top: 20%;
-  right: 25px;
+  top: 19%;
+  right: 4px;
   width: 30px;
   height: 30px;
   border: none;
   background-color: transparent;
   cursor: pointer;
-}
+} */
 
 .searchbar button:hover {
   background-image: url(../assets/search2.svg);
@@ -120,6 +136,8 @@ footer p{
   box-shadow: none;
 }
 
+/*----------------------------------------------------------------------------------------*/
+
 .objcontainer {
   display: flex;
   flex-direction: column;
@@ -128,8 +146,8 @@ footer p{
   bottom: 20px;
   width: 90%;
   height: 80%;
-  background-color: rgb(255, 255, 255, 0.8);
-  border-radius: 0 0 10px 10px;
+  background-color: rgb(255, 255, 255, 0.5);
+  border-radius: 10px;
   overflow: auto;
   padding-top: 20px;
   padding-bottom: 20px;
@@ -148,14 +166,20 @@ footer p{
   overflow: hidden;
   align-items: center;
   flex-shrink: 0;
+  transition: width 0.3s ease, height 0.3s ease;
 }
+
 
 .objcontainer div:hover {
   background-color: rgb(128, 128, 128, 0.4);
+  width: 95%;
+  height: 60px;
 }
 
 .objcontainer div:not(:hover) {
   background-color: rgb(255, 255, 255, 0.5);
+  width: 90%;
+  height: 50px;
 }
 
 .objcontainer div button{
@@ -167,6 +191,16 @@ footer p{
   font-weight: bold;
   box-shadow: 0 0 5px;
   cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.objcontainer div:hover button{
+  opacity: 1;
+}
+
+.objcontainer div:not(:hover) button{
+  opacity: 0;
 }
 
 .objcontainer div button:hover{
@@ -187,6 +221,16 @@ footer p{
   font-weight: bold;
 }
 
+.objcontainer div:last-child {
+  border-radius: 0 0 10px 10px;
+}
+
+.objcontainer div:first-child {
+  border-radius: 10px 10px 0 0;
+}
+
+/*----------------------------------------------------------------------------------------*/
+
 .querybox {
   display: flex;
   justify-content: center;
@@ -200,20 +244,26 @@ footer p{
   width: 40%;
   position: absolute;
   bottom: 0;
+  box-shadow: 0 0 10px;
 }
 
 .infopanel {
   width: 90%;
   height: 90%;
-  background-color: rgb(255, 255, 255, 0.8);
+  background-color: rgb(255, 255, 255, 0.5);
   border-radius: 10px;
 }
+
+/*----------------------------------------------------------------------------------------*/
 
 .buttonpanel {
   width: 90%;
   height: 70%;
-  background-color: rgb(255, 255, 255, 0.8);
+  background-color: rgb(255, 255, 255, 0.5);
   border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
 }
 
 .buttonbox {
@@ -227,23 +277,72 @@ footer p{
   border-radius: 20px;
   height: 20%;
   width: 40%;
+  box-shadow: 0 0 10px;
 }
+
+.buttonpanel p {
+  font-size: 30px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: bold;
+}
+
+.buttonpanel div {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  right: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#addentry {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: rgba(0, 146, 15, 0.7);
+  border: none;
+  box-shadow: 0 0 5px;
+  background-image: url(../assets/plus.svg);
+  background-size: 90% auto;
+  background-position: center;
+  transition: width 0.1s ease, height 0.1s ease;
+}
+
+#addentry:hover {
+  background-color: rgba(0, 223, 22, 0.7);
+  width: 45px;
+  height: 45px;
+}
+
+#addentry:not(:hover) {
+  background-color: rgba(0, 146, 15, 0.7);
+  width: 40px;
+  height: 40px;
+}
+
+/*----------------------------------------------------------------------------------------*/
 
 ::-webkit-scrollbar {
   width: 10px;
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  /* background: hsla(0, 0%, 73%, 0.7);  */
+  background: transparent;
 }
  
 ::-webkit-scrollbar-thumb {
-  background: hsl(0, 0%, 53%); 
+  background: hsl(0, 0%, 20%); 
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(0, 0%, 33%); 
+  background: hsl(0, 0%, 17%); 
 }
+
+/*----------------------------------------------------------------------------------------*/
 
 #logout{
   width: 40px;
@@ -268,12 +367,69 @@ footer p{
   opacity: 0.7;
 }
 
-.innerwrapper {
-  height: 90%;
-  width: 90%;
-  padding: 10px;
-  position: relative;
+/*----------------------------------------------------------------------------------------*/
+
+#entrycontainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: hsl(0, 0%, 100%, 10%);
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(20px);
 }
+
+.hidden {
+  display: none;
+}
+
+.addentrydiv {
+  position: relative;
+  width: 50%;
+  height: 60%;
+  background-color: rgb(255, 255, 255, 0.8);
+  border-radius: 20px;
+}
+.addentrydiv div{
+  display: flex;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+}
+
+#backbtn {
+  width: 30px;
+  height: 30px;
+  background-color: rgb(255, 0, 0, 0.8);
+  background-image: url(../assets/x.svg);
+  background-size: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
+  box-shadow: 0 0 5px;
+  border-radius: 20px;
+  transition: width 0.1s ease, height 0.1s ease;
+}
+
+#backbtn:hover {
+  width: 35px;
+  height: 35px;
+  background-color: rgba(226, 0, 0, 0.8);
+}
+
+#backbtn:not(:hover) {
+  width: 30px;
+  height: 30px;
+  background-color: rgb(255, 0, 0, 0.8);
+}
+  
+
+/*----------------------------------------------------------------------------------------*/
+
 
 @media (max-width: 860px) {
   .container{
@@ -282,4 +438,6 @@ footer p{
   }
 
 }
+
+
 

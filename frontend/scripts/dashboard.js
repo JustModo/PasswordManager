@@ -33,14 +33,16 @@ const contentbox = document.querySelector('.objcontainer')
 function updateListGui(field) {
         let content = contentbox.innerHTML.concat(
             `
-            <div>
-            <img src="${field["url"]}" onerror="this.onerror=null; this.src='../assets/internet.svg'">
+            <div class="fielddiv">
+            <img id ="${field["fieldname"]}" src="${field["url"]}" onerror="this.onerror=null; this.src='../assets/internet.svg'">
             <p>${field["fieldname"]}</p>
              <button id="${field["fieldname"]}" class="entrybutton"> Show </button>
             </div>
             `
             )
+
         contentbox.innerHTML = content; 
+
 
         let btns = document.querySelectorAll('.entrybutton')
         btns.forEach(btn => {
@@ -49,6 +51,9 @@ function updateListGui(field) {
             });
         });      
 }
+
+
+
 
 
 // const data = {
@@ -112,7 +117,7 @@ search.addEventListener('keyup', function() {
 function getFilterList(keyword,data) {                       //Gets Filtered Field Values
     let filterarray = []
     for(let field in data){
-        if(field.toLowerCase().indexOf(keyword) !== -1){
+        if(field.toLowerCase().indexOf(keyword.toLowerCase()) !== -1){
             let fieldname = field
             filterarray.push(fieldname)
         }
@@ -120,6 +125,22 @@ function getFilterList(keyword,data) {                       //Gets Filtered Fie
     getDisplayList(filterarray,data);
     //console.log(filterarray)
   }
+
+//-----------------------------------------------------------------------------------------
+
+const addentry = document.getElementById('addentry')
+const entrywindow = document.querySelector('#entrycontainer')
+
+addentry.addEventListener('click', function() {
+    entrywindow.classList.toggle("hidden");
+    entrywindow.style.display = "flex";
+})
+
+const exitentrywin = document.getElementById('backbtn')
+
+exitentrywin.addEventListener('click', function() {
+    entrywindow.style.display = "none"
+})
 
 //-----------------------------------------------------------------------------------------
 
