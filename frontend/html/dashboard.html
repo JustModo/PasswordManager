@@ -44,7 +44,6 @@
             </div>
 
         </div>
-
         <div id="entrycontainer" class="hidden">
             <div class="addentrydiv">
 
@@ -53,29 +52,29 @@
                 </div>
 
                 <div class="fieldcontainer">
-                    <form>
+                    <form id="formdata">
                         <div>
                             <input type="text" name="sitename" placeholder="Site Name">
                             <input type="text" name="url" placeholder="Site URL">
-                            <button type="button"></button>
+                            <button type="button" onclick="submitForm()"></button>
                         </div>
     
                         <div class="inputfieldpanel">
                             <div>
-                                <input type="checkbox" id="checkbox">
-                                <input type="text" name="Username" placeholder="Username"><br>
+                                <input type="checkbox" id="u_checkbox">
+                                <input type="text" name="Username" placeholder="Username" id="u_input" disabled><br>
                             </div>
                             <div>
-                                <input type="checkbox" id="checkbox">
-                                <input type="text" name="Password" placeholder="Password"><br>
+                                <input type="checkbox" id="p_checkbox">
+                                <input type="text" name="Password" placeholder="Password" id="p_input" disabled><br>
                             </div>
                             <div> 
-                                <input type="checkbox" id="checkbox">
-                                <input type="text" name="Email" placeholder="Email Address"><br>
+                                <input type="checkbox" id="e_checkbox">
+                                <input type="text" name="Email" placeholder="Email Address" id="e_input" disabled><br>
                             </div>
                             <div>
-                                <input type="checkbox" id="checkbox">
-                                <input type="text" name="PhNumber" placeholder="Phone Number"><br>
+                                <input type="checkbox" id="n_checkbox">
+                                <input type="text" name="PhNumber" placeholder="Phone Number" id="n_input" disabled><br>
                             </div>
                         </div>
                     </form>

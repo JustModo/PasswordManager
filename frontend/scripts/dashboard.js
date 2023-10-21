@@ -54,7 +54,7 @@ function updateListGui(field) {
 }
 
 
-
+//----------------------------------------------------------------------------------------- Search Bar and Content Formatting
 
 
 // const data = {
@@ -100,7 +100,7 @@ function getDisplayList(fieldnames,userdata){
   }
 }
 
-//-----------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------- Filter Search
 
 const search = document.getElementById('search');
 
@@ -127,7 +127,7 @@ function getFilterList(keyword,data) {                       //Gets Filtered Fie
     //console.log(filterarray)
   }
 
-//-----------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------- "Add Data" Window Logic
 
 const addentry = document.getElementById('addentry')
 const entrywindow = document.querySelector('#entrycontainer')
@@ -135,6 +135,7 @@ const entrywindow = document.querySelector('#entrycontainer')
 addentry.addEventListener('click', function() {
     entrywindow.classList.toggle("hidden");
     entrywindow.style.display = "flex";
+    addFieldLogic()
 })
 
 const exitentrywin = document.getElementById('backbtn')
@@ -143,12 +144,43 @@ exitentrywin.addEventListener('click', function() {
     entrywindow.style.display = "none"
 })
 
-//-----------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------- Form Behaviour Logic
 
+function addFieldLogic() {
+    const forminputs = document.querySelectorAll('.inputfieldpanel div input[type="text"]')
+    const formcheckbox = document.querySelectorAll('.inputfieldpanel div input[type="checkbox"]')
+    formcheckbox.forEach((checkbox, index) => {
+        forminputs[index].disabled = true
+        forminputs[index].value = ''
+        checkbox.checked = false;
+    })
+    formcheckbox.forEach((checkbox, index) =>
+        checkbox.addEventListener('change', function(){
+            forminputs[index].disabled = !checkbox.checked;
+            if(forminputs[index].disabled){
+                forminputs[index].value = ''
+            }
+        })
+    )
+}
+
+//----------------------------------------------------------------------------------------- Form Data Logic
+
+function submitForm() {
+    const form = document.getElementById('formdata')
+    const formdata = new FormData(form)
+    console.log(formdata)
+}
+
+
+
+//----------------------------------------------------------------------------------------- Display User Information
 
 function updateInfoGui(call) {
     console.log(call)
 }
+
+//----------------------------------------------------------------------------------------- Welcome Message
 
 const greettext = document.querySelector('#greetname')
 const masterusername = localStorage.getItem("username");
@@ -158,7 +190,7 @@ function greet(){
     greettext.textContent = masterusername;
 }
 
-//-----------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------- Logout
 
 async function logOut() {
     try{
@@ -193,7 +225,6 @@ logoutbtn.addEventListener('click', () => {
 window.onload = function() {
     getData();
     greet()
-    
-    entrywindow.classList.toggle("hidden");
-    entrywindow.style.display = "flex";
+    // entrywindow.classList.toggle("hidden");
+    // entrywindow.style.display = "flex";
 };
