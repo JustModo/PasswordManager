@@ -34,7 +34,8 @@ function updateListGui(field) {
             <div class="fielddiv">
             <img id ="${field["fieldname"]}" src="${field["url"]}" onerror="this.onerror=null; this.src='../assets/internet.svg'">
             <p>${field["fieldname"]}</p>
-             <button id="${field["fieldname"]}" class="entrybutton"> Show </button>
+             <button id="${field["fieldname"]}" class="entryview"></button>
+             <button id="${field["fieldname"]}" class="editbutton"></button>
             </div>
             `
             )
@@ -42,12 +43,18 @@ function updateListGui(field) {
         contentbox.innerHTML = content; 
 
 
-        let btns = document.querySelectorAll('.entrybutton')
+        let btns = document.querySelectorAll('.entryview')
+        let editbtns = document.querySelectorAll('.editbutton')
         btns.forEach(btn => {
             btn.addEventListener('click', () => {
                 updateInfoGui(btn.id);
             });
-        });      
+        });
+        editbtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                updateInfoGui(btn.id);
+            });
+        });       
 }
 
 
@@ -130,6 +137,10 @@ const entrywindow = document.querySelector('#entrycontainer')
 addentry.addEventListener('click', function() {
     entrywindow.classList.toggle("hidden");
     entrywindow.style.display = "flex";
+    const inputbox = document.getElementById("sitenamefield")
+    const urlfield = document.getElementById("urlfield")
+    inputbox.value = ''
+    urlfield.value = "https://"
     addFieldLogic()
 })
 
@@ -257,8 +268,55 @@ function validateUrl(){
 
 //----------------------------------------------------------------------------------------- Display User Information
 
-function updateInfoGui(call) {
-    console.log(call)
+function updateInfoGui(field) {
+    const title = document.getElementById('displayname')
+    title.textContent = field
+    removeBox()
+
+    const data = JSON.parse(localStorage.getItem("userdata"))
+
+    const inputmap = new Map();
+    inputmap.set("dusername","div_u") 
+    inputmap.set("demail","div_e")
+    inputmap.set("dphnumber","div_ph")
+    inputmap.set("dpassword","div_p")
+
+    const propertyName = ["Username","Email","PhNumber","Password"]
+    const buttonName = ["bdusername", "bdemail", "bdphnumber", "bdpassword"]
+    let i = 0
+
+    inputmap.forEach((div, element) =>{
+        let input = document.getElementById(element)
+        let block = document.querySelector(`.${div}`)
+        let button = document.getElementById(buttonName[i])
+
+        if(!data.hasOwnProperty(field) || !data[field][propertyName[i]]){  // 
+            block.style.display = "none"
+        } else {
+            block.style.display = "flex"
+            input.value = data[field][propertyName[i]]
+
+            button.addEventListener('click', function() {
+                input.select();
+                input.setSelectionRange(0, 99999);
+
+                navigator.clipboard.writeText(input.value)
+                .then(function () {
+                    button.classList.add('animate');
+                    button.style.backgroundImage = 'url("../assets/tick.svg")'
+                    setTimeout(() => {
+                        button.classList.remove('animate');
+                        button.style.backgroundImage = 'url("../assets/clipboard.svg")'
+                    }, 1000);
+                })
+                .catch(function (err) {
+                    console.error('Failed to copy text: ', err);
+                });
+
+            })
+        }
+        i++
+    })
 }
 
 //----------------------------------------------------------------------------------------- Welcome Message
@@ -269,6 +327,15 @@ console.log(masterusername)
 
 function greet(){
     greettext.textContent = masterusername;
+}
+
+//----------------------------------------------------------------------------------------- InfoBox Logic
+
+function removeBox() {
+    const infobox = document.querySelector('.infobox')
+    const infopanel = document.querySelector('.infopanel')
+    infobox.style.display = 'none'
+    infopanel.style.display = 'flex'
 }
 
 //----------------------------------------------------------------------------------------- Logout
@@ -292,6 +359,8 @@ const logoutbtn = document.querySelector("#logout")
 
 logoutbtn.addEventListener('click', () => {
     console.log("logging out")
+    localStorage.removeItem("username")
+    localStorage.removeItem("userdata")
     logOut()
 })
 

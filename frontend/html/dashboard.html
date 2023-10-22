@@ -8,15 +8,17 @@
 </head>
 <body>
     <div class="wrapper">
+
         <div class="container">
-        <button id="logout"></button>
+
+            <button id="logout"></button>
 
             <div class="innerwrapper">
+
                 <div class="contentbox">
 
                     <div class="searchbar"> 
                         <input type="text" id="search">
-                        <!-- <button></button> -->
                     </div>
 
                     <div class="objcontainer"></div>
@@ -24,16 +26,69 @@
                 </div>
 
                 <div class="querybox">
-                    <div class="infopanel"></div>
+                    <div class="infobox">
+                        <img src="../assets/icon.jpg">
+                    </div>
+                    <div class="infopanel">
+                        <div>
+                            <label id="displayname">Display</label>
+                            <button></button>
+                        </div>
+
+                        <div class="div_u">
+                            <label for="dusername">Username:</label>
+                            <div>
+                                <input id="dusername" disabled>
+                                <button id="bdusername"></button>
+                            </div>
+                        </div>
+
+                        <div class="div_e">
+                            <label for="demail">Email:</label>
+                            <div>
+                                <input id="demail" disabled>
+                                <button id="bdemail"></button>
+                            </div>
+                        </div>
+
+                        <div class="div_ph">
+                            <label for="dphnumber">Ph. Number:</label>
+                            <div>
+                                <input id="dphnumber" disabled>
+                                <button id="bdphnumber"></button>
+                            </div>
+                        </div>
+
+                        <div class="div_p">
+                            <label for="dpassword">Password:</label>
+                            <div>
+                                <input id="dpassword" type="password" disabled>
+                                <button id="bdpassword"></button> 
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
 
                 <div class="buttonbox">
-                    <div class="buttonpanel">
 
-                        <div>
-                            <p>Welcome,</p>
-                            <p id="greetname"></p>
+                    <div> <!-- Panel -->
+
+                        <div> <!--Holder -->
+
+                            <div>
+                                <!-- Image  -->
+                            </div>
+                            <div>
+                                <label id="greetname"></label>
+                                <label>Change Password</label>
+                            </div>
+
                         </div>
+
+                    </div>
+
+                    <div class="buttonpanel">
 
                         <div>
                             <button id="addentry"></button>
@@ -41,6 +96,7 @@
 
                     </div>
                 </div>
+
             </div>
 
         </div>
@@ -55,7 +111,7 @@
                     <form id="formdata">
                         <div>
                             <input type="text" name="sitename" placeholder="Site Name" id="sitenamefield" >
-                            <input type="text" name="url" placeholder="Site URL" id="urlfield" >
+                            <input type="text" name="url" placeholder="Site URL" id="urlfield" value="https://">
                             <label></label>
                             <button type="button" onclick="validateData()"></button>
                         </div>
