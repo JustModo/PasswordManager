@@ -103,37 +103,11 @@ footer p{
   padding-right: 40px;
   position: absolute;
   left:20px;
+  transition: transform 0.3s ease;
 }
 
-/* .searchbar button {
-  background-image: url("../assets/search.svg");
-  background-size: cover;
-  background-position: center;
-  display: inline-block;
-  position: absolute;
-  top: 19%;
-  right: 4px;
-  width: 30px;
-  height: 30px;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-} */
-
-.searchbar button:hover {
-  background-image: url(../assets/search2.svg);
-}
-
-.searchbar button:not(:hover) {
-  background-image: url(../assets/search.svg);
-}
-
-.searchbar:hover{
-  box-shadow: 0, 0, 5px;
-}
-
-.searchbar:not(:hover){
-  box-shadow: none;
+.searchbar input:hover, .searchbar input:focus{
+  transform: scale(1.05);
 }
 
 /*----------------------------------------------------------------------------------------*/
@@ -156,6 +130,7 @@ footer p{
 
 .objcontainer div{
   display: flex;
+  position: relative;
   padding: 20px;
   width: 90%;
   height: 50px;
@@ -182,16 +157,39 @@ footer p{
   height: 50px;
 }
 
-.objcontainer div button{
+.objcontainer div button:nth-child(3){
   position: absolute;
-  right: 40px;
-  background-color: hsl(0, 0%, 100%, 0.5);
+  right: 30px;
+  background-color: rgba(0, 160, 160, 0.3);
   border-radius: 10px;
   padding: 5px;
   font-weight: bold;
   box-shadow: 0 0 5px;
   cursor: pointer;
   opacity: 0;
+  width: 25px;
+  height: 25px;
+  background-image: url("../assets/eye.svg");
+  background-size: cover;
+  backdrop-filter: blur(5px);
+  transition: opacity 0.3s ease;
+}
+
+.objcontainer div button:nth-child(4){
+  position: absolute;
+  right: 70px;
+  background-color: rgba(0, 160, 160, 0.3);
+  border-radius: 10px;
+  padding: 5px;
+  font-weight: bold;
+  box-shadow: 0 0 5px;
+  cursor: pointer;
+  opacity: 0;
+  width: 25px;
+  height: 25px;
+  background-image: url("../assets/pencil.svg");
+  background-size: cover;
+  backdrop-filter: blur(5px);
   transition: opacity 0.3s ease;
 }
 
@@ -207,9 +205,9 @@ footer p{
   background-color: rgba(143, 143, 143, 0.5);
 }
 
-.objcontainer div button:not(:hover){
+/* .objcontainer div button:not(:hover){
   background-color: hsl(0, 0%, 100%, 0.5);
-}
+} */
 
 .objcontainer div img{
   width: 30px;
@@ -247,19 +245,200 @@ footer p{
   box-shadow: 0 0 10px;
 }
 
-.infopanel {
+.infobox {
+  display: flex;
+  position: relative;
   width: 90%;
   height: 90%;
   background-color: rgb(255, 255, 255, 0.5);
   border-radius: 10px;
+  padding: 20px;
+  overflow: auto;
+  justify-content: center;
+  align-items: center;
+  /* background-image: url('../assets/icon.jpg');
+  background-size: 80% auto;
+  background-repeat: no-repeat;
+  background-position: center; */
+}
+
+.infobox img {
+  transition: transform 0.3s ease;
+  width: 18vw;
+  height: 18vw;
+}
+
+.infobox img:hover {
+  transform: scale(1.105);
+}
+
+
+.infopanel {
+  display: none;
+  position: relative;
+  width: 90%;
+  height: 90%;
+  background-color: rgb(255, 255, 255, 0.5);
+  border-radius: 10px;
+  flex-direction: column;
+  padding: 20px;
+  overflow: auto;
+}
+
+.infopanel div {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  margin: 5px;
+  padding: 10px;
+  background-color: rgb(255, 255, 255, 0.7);
+  box-shadow: 0 0 10px;
+}
+
+.infopanel div div{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-shadow: 0 0 5px;
+}
+
+.infopanel > div {
+  transition: transform 0.3s ease;
+}
+
+.infopanel > div:hover{
+  transform: scale(1.05);
+}
+
+.infopanel > div:not(:hover){
+  transform: scale(1);
+}
+
+.infopanel > div > div {
+  transition: transform 0.3s ease;
+}
+
+.infopanel > div > div:hover{
+  transform: scale(1.03);
+}
+
+.infopanel > div > div:not(:hover){
+  transform: scale(1);
+}
+
+.infopanel div label{
+  display: inline-block;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: bolder;
+  font-size: 13px;
+  text-align: left;
+}
+
+.infopanel > div:first-child{
+  position: relative;
+  border-radius: 10px;
+  margin: 5px 5px 15px 5px;
+  padding: 10px 10px 10px 15px;
+  background-color: rgb(255, 255, 255, 0.9);
+  box-shadow: 0 0 10px;
+  display: flex;
+  flex-shrink: 0;
+  height: 45px;
+  align-items: left;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.infopanel div:first-child > label{
+  /* position: absolute; */
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: bolder;
+  font-size: 25px;
+  text-align: left;
+  width: 70%;
+}
+
+.infopanel div:first-child > button{
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  background-size: cover;
+  backdrop-filter: blur(10px);
+  transition: opacity 0.3s ease;
+  margin: 10px;
+  border: none;
+  background-image: url('../assets/link.svg');
+}
+
+.infopanel div:first-child > button:hover{
+  filter: brightness(80%);
+}
+
+.infopanel div input{
+  width: 80%;
+  height: 30px;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255, 0.7);
+  border: none;
+  transition: width 0.1s ease, height 0.1s ease;
+  box-shadow: 0 0 5px;
+  margin: 0 0px 0 10px;
+  padding-left: 10px;
+}
+
+.infopanel div input:disabled {
+  color: black;
+  font-weight: bold;
+}
+
+.infopanel div div button{
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  background-size: cover;
+  backdrop-filter: blur(10px);
+  background-image: url('../assets/clipboard.svg');
+  transition: opacity 0.3s ease;
+  margin: 10px;
+  border: none;
+  transition: background-image 0.4s ease;
+}
+
+.infopanel div div button:hover{
+  filter: grayscale(30%) brightness(80%);
+}
+
+.animate{
+  animation-name: tick;
+  animation-duration: 0.3s;
+  animation-timing-function: ease;
+}
+
+@keyframes tick {
+  from {
+      opacity: 1;
+  }
+  to {
+      opacity: 0;
+  }
 }
 
 /*----------------------------------------------------------------------------------------*/
 
 .buttonbox {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
+  flex-direction: row;
+  gap: 20px;
   position: absolute;
   left: 30px;
   top: 0;
@@ -268,50 +447,111 @@ footer p{
   height: 20%;
   width: 40%;
   box-shadow: 0 0 10px;
+  padding: 0 10px 0 10px;
 }
 
 .buttonpanel {
-  width: 90%;
+  width: 40%;
   height: 70%;
   background-color: rgb(255, 255, 255, 0.5);
   border-radius: 10px;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 20px;
 }
 
-.buttonpanel div:first-child {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
+.buttonbox > div:first-child {
   width: 50%;
-  height: 50px;
-  left: 30px;
+  height: 70%;
+  background-color: rgb(255, 255, 255, 0.5);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  position: relative;
 }
 
-.buttonpanel p:first-child {
-  color: rgb(0, 0, 0);
-  position: absolute;
-  bottom: 0px;
-  left: 10px;
-  font-size: 25px;
-  font-family: Impact, fantasy;
+.buttonbox div {
+  justify-content: space-around;
 }
 
-.buttonpanel p:last-child {
-  position: absolute;
+.buttonbox > div:first-child > div {
+  background-color: rgb(255, 255, 255, 0.7);
+  padding: 5px 10px 5px 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+  width: 90%;
+  height: 90%;
+  transition: transform 0.3s ease;
+}
+
+.buttonbox > div:first-child > div:hover{
+  transform: scale(1.05);
+}
+
+.buttonbox > div:first-child > div > div:first-child{
+  flex-shrink: 0;
+  background-image: url(../assets/logo.png);
+  background-size: cover; 
+  width: 30px;
+  height: 30px;
+}
+
+.buttonbox > div:first-child label:first-child {
+  display: block;
   color: rgb(0, 0, 0);
-  top: -1px;
-  left: 11px;
-  font-size: 25px;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 20px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+}
+
+.buttonbox > div:first-child > div:hover label:first-child{
+  text-overflow: ellipsis;
+  animation: scrollText linear 5s infinite;
+  overflow: visible;
+}
+
+@keyframes scrollText {
+  0%,50%,100% {
+    transform: translateX(0%);
+  }
+  25% {
+    transform: translateX(-25%);
+  }
+  75% {
+    transform: translateX(25%);
+  }
+}
+
+.buttonbox > div:first-child label:last-child {
+  display: block;
+  color: rgb(0, 0, 0);
+  font-size: 10px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  overflow: hidden;
+}
+
+.buttonbox div:first-child > div > div:last-child{
+  /* width: 70px; */
+  overflow: hidden;
 }
 
 .buttonpanel div:last-child {
-  position: absolute;
   width: 50px;
   height: 50px;
-  right: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -523,6 +763,11 @@ footer p{
   border: none;
   margin-top: 5px;
   transition: height 0.1s ease, width 0.1s ease;
+  background-image: url('../assets/tickp.svg');
+  background-size: 80% auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 0 10px;
 }
 
 .fieldcontainer form > div:first-child button:hover{
@@ -622,6 +867,13 @@ footer p{
   .addentrydiv{
     position: fixed;
     width: 700px;
+  }
+}
+
+@media (max-width: 1080px) {
+  .infobox img{
+    width: 194.4px;
+    height: 194.4px;
   }
 }
 
