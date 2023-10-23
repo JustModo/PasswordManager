@@ -45,7 +45,7 @@ localStorage.setItem("username", _username);
 formData = new FormData();
 formData.append('user_name', _username);
 formData.append('password', _password);
-console.log(formData)
+// console.log(formData)
 
     try {
 <<<<<<< HEAD
@@ -157,6 +157,7 @@ window.onload = async function() {
 };
 
 
+<<<<<<< HEAD
 
 
 
@@ -172,6 +173,8 @@ window.onload = async function() {
 
 
 >>>>>>> 22cbef5 (Add all other pages)
+=======
+>>>>>>> 7afbaba (Finish Frontend)
 // function handleAuthRes(data) {
 //     if(data.token){
 //         localStorage.setItem('token', data.token);

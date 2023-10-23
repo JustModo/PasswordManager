@@ -855,6 +855,17 @@ footer p{
   font-weight: bold;
   text-align: center;
   display: block;
+  color: white;
+}
+
+.c1f:hover {
+  transform: scale(1.05);
+  background-color: rgb(255, 255, 255, 0.8);
+}
+
+.c1f:hover label{
+  transform: scale(1.05);
+  color: rgb(0, 0, 0);
 }
 
 .c1f {
@@ -864,10 +875,11 @@ footer p{
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  background-color: rgb(255, 255, 255, 0.7);
+  background-color: rgb(255, 255, 255, 0.5);
   border-radius: 10px;
   padding: 10px;
   box-shadow: 0 0 10px;
+  transition: transform 0.3s ease;
 }
 
 .c1l {
