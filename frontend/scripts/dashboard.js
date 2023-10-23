@@ -152,6 +152,7 @@ const exitentrywin = document.getElementById('backbtn')
 
 exitentrywin.addEventListener('click', function() {
     entrywindow.style.display = "none"
+    localStorage.removeItem("editVal")
 })
 
 //----------------------------------------------------------------------------------------- Form Behaviour Logic
@@ -290,6 +291,7 @@ function addFieldEditLogic(field){
     const url = document.getElementById('urlfield')
     const sitename = document.getElementById('sitenamefield')
     const userdata = JSON.parse(localStorage.getItem("userdata"))
+    localStorage.setItem("editVal", field)
 
     sitename.value = field
     url.value = userdata[field]["url"]
@@ -332,7 +334,7 @@ function addFieldEditLogic(field){
 
 //----------------------------------------------------------------------------------------- Edit Data Validation
 
-function validateEditData() {
+function validateDataEdit() {
     if(validateEditSitename() && validateEditUrl())
         editData();
         return;
@@ -376,15 +378,51 @@ function validateEditUrl(){
 function editData() {
     const form = document.getElementById('formdata')
     const formeditdata = new FormData(form)
-    formatEditData(formeditdata)
+    editDataHandler(formeditdata)
 }
 
-function formatEditData(editdata) {
-  
+function editDataHandler(editdata) {
+    const objData = {}
+    const userdata = JSON.parse(localStorage.getItem("userdata"))
+    const entryname = localStorage.getItem("editVal")
+    let sitename; //from edit data
+    editdata.forEach((value, key)=>{
+        if(key == 'sitename'){
+            sitename = value;
+        }else {
+            objData[key] = value;
+        }
+    })
+
+    for(let field in objData){
+        let value = objData[field]
+
+        if(!(field in userdata[entryname])){
+            addNewField(entryname, field, value)
+        } else if(value != userdata[entryname][field]){
+            editFieldValue(entryname, field, value )
+        } 
+    }
+
+    if(sitename != entryname){
+        changeEntryName(entryname, sitename)
+    }
 }
 
 
 //----------------------------------------------------------------------------------------- Edit Data API Logic
+
+function addNewField(sitename, field, value) {
+    console.log(sitename, field, value)
+}
+
+function editFieldValue(sitename, field, value) {
+    console.log(sitename, field, value)
+}
+
+function changeEntryName(entryname, sitename) {
+    console.log(entryname, sitename)
+}
 
 
 
@@ -497,8 +535,7 @@ const logoutbtn = document.querySelector("#logout")
 
 logoutbtn.addEventListener('click', () => {
     console.log("logging out")
-    localStorage.removeItem("username")
-    localStorage.removeItem("userdata")
+    localStorage.clear()
     logOut()
 })
 
