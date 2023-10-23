@@ -52,7 +52,7 @@ function updateListGui(field) {
         });
         editbtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                updateInfoGui(btn.id);
+                showEditPage(btn.id);
             });
         });       
 }
@@ -137,6 +137,10 @@ const entrywindow = document.querySelector('#entrycontainer')
 addentry.addEventListener('click', function() {
     entrywindow.classList.toggle("hidden");
     entrywindow.style.display = "flex";
+    const otherbutton = document.getElementById('submitdatabtn')
+    const editbutton = document.getElementById('submiteditdatabtn')
+    otherbutton.style.display = "block";
+    editbutton.style.display = "none";
     const inputbox = document.getElementById("sitenamefield")
     const urlfield = document.getElementById("urlfield")
     inputbox.value = ''
@@ -264,16 +268,150 @@ function validateUrl(){
     }
 }
 
+//----------------------------------------------------------------------------------------- Edit Page Logic
+
+function showEditPage(field) {
+    entrywindow.classList.toggle("hidden");
+    entrywindow.style.display = "flex";
+    const otherbutton = document.getElementById('submitdatabtn')
+    const editbutton = document.getElementById('submiteditdatabtn')
+    otherbutton.style.display = "none";
+    editbutton.style.display = "block";
+    const inputbox = document.getElementById("sitenamefield")
+    const urlfield = document.getElementById("urlfield")
+    inputbox.value = ''
+    urlfield.value = ""
+    addFieldEditLogic(field)
+}
+
+function addFieldEditLogic(field){
+    const forminputs = document.querySelectorAll('.inputfieldpanel div input[type="text"]')
+    const formcheckbox = document.querySelectorAll('.inputfieldpanel div input[type="checkbox"]')
+    const url = document.getElementById('urlfield')
+    const sitename = document.getElementById('sitenamefield')
+    const userdata = JSON.parse(localStorage.getItem("userdata"))
+
+    sitename.value = field
+    url.value = userdata[field]["url"]
+
+    formcheckbox.forEach((checkbox, index) => {
+        forminputs[index].disabled = true
+
+        switch (forminputs[index].id) {
+            case "u_input":
+                forminputs[index].value = userdata[field]["Username"] ?? "";
+                break;
+            case "p_input":
+                forminputs[index].value = userdata[field]["Password"] ?? "";
+                break;
+            case "e_input":
+                forminputs[index].value = userdata[field]["Email"] ?? "";
+                break;
+            case "n_input":
+                forminputs[index].value = userdata[field]["PhNumber"] ?? "";
+                break;   
+        }
+
+        if(forminputs[index].value == ""){
+            checkbox.checked = false;
+        } else {
+            checkbox.checked = true;
+        }
+
+        forminputs[index].disabled = !checkbox.checked;
+        checkbox.addEventListener('change', function(){
+            forminputs[index].disabled = !checkbox.checked;
+            if(forminputs[index].disabled){
+                forminputs[index].value = ''
+            }
+        })
+
+    })
+
+}
+
+//----------------------------------------------------------------------------------------- Edit Data Validation
+
+function validateEditData() {
+    if(validateEditSitename() && validateEditUrl())
+        editData();
+        return;
+}
+
+function validateEditSitename(){
+    const sitename = document.getElementById('sitenamefield').value
+    if(sitename =='' || sitename == null){
+        errorlabel.textContent = "Enter Sitename!"
+        setTimeout(()=>{
+            errorlabel.textContent = ''
+        },3000)
+        return false;
+    } else{
+        return true;
+    }
+}
+
+function validateEditUrl(){
+    const url = document.getElementById('urlfield').value
+    const urlPattern = /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
+    if(url == '' || url ==null){
+        errorlabel.textContent = "Enter URL!"
+        setTimeout(()=>{
+            errorlabel.textContent = ''
+        },3000)
+        return false;
+    }else if(!urlPattern.test(url)){
+        errorlabel.textContent = "Enter Valid URL!"
+        setTimeout(()=>{
+            errorlabel.textContent = ''
+        },3000)
+        return false;
+    }else{
+        return true;
+    }
+}
+
+//----------------------------------------------------------------------------------------- Edit Data Submission Logic
+
+function editData() {
+    const form = document.getElementById('formdata')
+    const formeditdata = new FormData(form)
+    formatEditData(formeditdata)
+}
+
+function formatEditData(editdata) {
+  
+}
+
+
+//----------------------------------------------------------------------------------------- Edit Data API Logic
+
 
 
 //----------------------------------------------------------------------------------------- Display User Information
 
+let previousClickListener = null
 function updateInfoGui(field) {
     const title = document.getElementById('displayname')
     title.textContent = field
     removeBox()
 
     const data = JSON.parse(localStorage.getItem("userdata"))
+
+    const linkButton = document.getElementById('linkbutton')
+
+    function link() {
+        const url = data[field]["url"]
+        window.open(url, '_blank');
+    }
+
+    if(previousClickListener) {
+        linkButton.removeEventListener('click', previousClickListener);
+    }
+    linkButton.addEventListener('click', link)
+
+    previousClickListener = link;
+
 
     const inputmap = new Map();
     inputmap.set("dusername","div_u") 
