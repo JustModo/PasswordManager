@@ -1,4 +1,17 @@
 
+// const data = {
+//     Amazon: {
+//         url: "https://www.amazon.com",
+//         Name: "Yash",
+//         Password: "123"
+//     },
+//     Google: {
+//         url: "https://www.google.com",
+//         Name: "XYZ",
+//         Password: "Secret"
+//     }
+// }
+
 //-----------------------------------------------------------------------------------------(Getting Data)
 
 async function getData() {
@@ -59,20 +72,6 @@ function updateListGui(field) {
 
 
 //----------------------------------------------------------------------------------------- Search Bar and Content Formatting
-
-
-// const data = {
-//     Amazon: {
-//         url: "https://www.amazon.com",
-//         Name: "Yash",
-//         Password: "123"
-//     },
-//     Google: {
-//         url: "https://www.google.com",
-//         Name: "XYZ",
-//         Password: "Secret"
-//     }
-// }
 
 function getFieldName(data) {                       //Gets All Field Values
   let fieldnamearray = []
@@ -213,6 +212,11 @@ async function sendData(formData){
             body: formData 
         });
         if(response.ok){
+            confirmation()
+            setTimeout(() => {
+                entrywindow.style.display = "none"
+                localStorage.removeItem("editVal")
+            }, 1000);
             getData()
         }
         if(!response.ok){
@@ -225,7 +229,7 @@ async function sendData(formData){
         }
     } catch(error){
         console.error(error)
-    }     
+    }  
 }
 
 //----------------------------------------------------------------------------------------- Form Data Validation Logic
@@ -381,7 +385,9 @@ function editData() {
     editDataHandler(formeditdata)
 }
 
-function editDataHandler(editdata) {
+let isError;
+
+async function editDataHandler(editdata) {
     const objData = {}
     const userdata = JSON.parse(localStorage.getItem("userdata"))
     const entryname = localStorage.getItem("editVal")
@@ -394,37 +400,158 @@ function editDataHandler(editdata) {
         }
     })
 
-    for(let field in objData){
-        let value = objData[field]
+    const properties = ["Username", "Email", "PhNumber", "Password"]
+    for(let property of properties){
+        if(!(property in objData)){
+            objData[property] = ""
+        }
+    }
 
-        if(!(field in userdata[entryname])){
-            addNewField(entryname, field, value)
-        } else if(value != userdata[entryname][field]){
-            editFieldValue(entryname, field, value )
-        } 
+    console.log(objData)
+    isError = false
+
+    for(let field in objData){
+        if (objData.hasOwnProperty(field)) {
+
+            let value = objData[field]
+
+            if(!(field in userdata[entryname])){
+                addNewField(entryname, field, value)
+                await delay(500)
+            } 
+            else if(value != userdata[entryname][field]){
+                editFieldValue(entryname, field, value )
+                await delay(500)
+            } 
+
+        }
     }
 
     if(sitename != entryname){
         changeEntryName(entryname, sitename)
+        await delay(500)
     }
+    getData()
+    await delay(100)
+    if(!isError){
+        updateInfoGui(localStorage.getItem("editVal"))
+        confirmation()
+        setTimeout(() => {
+            entrywindow.style.display = "none"
+            localStorage.removeItem("editVal")
+        }, 1000);
+    }
+}
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 
 //----------------------------------------------------------------------------------------- Edit Data API Logic
 
-function addNewField(sitename, field, value) {
-    console.log(sitename, field, value)
+async function addNewField(sitename, field, value) {
+    const formData = new FormData()
+    formData.append("entry_name", sitename)
+    formData.append("field_name", field)
+    formData.append("field_value", value)
+
+    try {
+        const response = await fetch('/add_field', {
+            method: "POST",
+            body: formData 
+        });
+        if(response.ok){
+            console.log(`Added Field: ${field}, with Value "${value}"`)
+        }
+        if(!response.ok){
+            isError = true
+            const errorMessage = await response.text();
+                errorlabel.textContent = errorMessage
+                setTimeout(()=>{
+                    errorlabel.textContent = ''
+                },3000)
+                throw new Error(errorMessage);
+        }
+    } catch(error){
+        console.error(error)
+    }     
+    
 }
 
-function editFieldValue(sitename, field, value) {
-    console.log(sitename, field, value)
+async function editFieldValue(sitename, field, value) {
+    const formData = new FormData()
+    formData.append("entry_name", sitename)
+    formData.append("field_name", field)
+    formData.append("field_value", value)
+
+    try {
+        const response = await fetch('/edit_field_value', {
+            method: "POST",
+            body: formData 
+        });
+        if(response.ok){
+            console.log(`Changed Value of Field: ${field} to "${value}"`)
+        }
+        if(!response.ok){
+            isError = true
+            const errorMessage = await response.text();
+                errorlabel.textContent = errorMessage
+                setTimeout(()=>{
+                    errorlabel.textContent = ''
+                },3000)
+                throw new Error(errorMessage);
+        }
+    } catch(error){
+        console.error(error)
+    }  
 }
 
-function changeEntryName(entryname, sitename) {
-    console.log(entryname, sitename)
+async function changeEntryName(entryname, sitename) {
+    const formData = new FormData()
+    formData.append("old_entry_name", entryname)
+    formData.append("new_entry_name", sitename)
+
+    try {
+        const response = await fetch('/edit_entry_name', {
+            method: "POST",
+            body: formData 
+        });
+        if(response.ok){
+            console.log(`Changed EntryName from ${entryname} to "${sitename}"`)
+            localStorage.setItem("editVal", sitename)
+        }
+        if(!response.ok){
+            isError = true
+            const errorMessage = await response.text();
+                errorlabel.textContent = errorMessage
+                setTimeout(()=>{
+                    errorlabel.textContent = ''
+                },3000)
+                throw new Error(errorMessage);
+        }
+    } catch(error){
+        console.error(error)
+    }  
 }
+//----------------------------------------------------------------------------------------- Confirmation Box
 
-
+function confirmation() {
+    console.log('Confirmed')
+    const confirm = document.querySelector('.confirmdivparent')
+    const tick = document.querySelector('.confirmdiv img')
+    const confirmbox = document.querySelector('.confirmdiv')
+    confirm.style.display = "flex"
+    tick.classList.add('confirmfade')
+    confirmbox.classList.add('confirmdivanimate')
+    confirm.classList.add('confirmdivanimate')
+    setTimeout(() => {
+        confirm.style.display = "none"
+        tick.classList.remove('confirmfade')
+        confirmbox.classList.add('confirmdivanimate')
+        confirm.classList.remove('confirmdivanimate')
+    }, 1000);
+}
 
 //----------------------------------------------------------------------------------------- Display User Information
 
@@ -542,14 +669,9 @@ logoutbtn.addEventListener('click', () => {
 
 //-----------------------------------------------------------------------------------------
 
-// window.addEventListener('unload', function() {
-//     logOut()
-// });
 
 
 window.onload = function() {
     getData();
     greet()
-    // entrywindow.classList.toggle("hidden");
-    // entrywindow.style.display = "flex";
 };
