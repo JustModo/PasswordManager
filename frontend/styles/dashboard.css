@@ -755,7 +755,7 @@ footer p{
   height: 30px;
 }
 
-.fieldcontainer form > div:first-child button{
+.fieldcontainer form > div:first-child button:first-of-type{
   width: 60px;
   height: 30px;
   border-radius: 10px;
@@ -770,7 +770,29 @@ footer p{
   box-shadow: 0 0 10px;
 }
 
-.fieldcontainer form > div:first-child button:hover{
+.fieldcontainer form > div:first-child button:first-of-type:hover{
+  background-color: rgb(255, 255, 255, 0.9);
+  width: 65px;
+  height: 35px;
+}
+
+.fieldcontainer form > div:first-child button:last-child{
+  display: none;
+  width: 60px;
+  height: 30px;
+  border-radius: 10px;
+  background-color: rgba(0, 255, 81, 0.8);
+  border: none;
+  margin-top: 5px;
+  transition: height 0.1s ease, width 0.1s ease;
+  box-shadow: black 0 0 10px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: bold;
+  color: white;
+}
+
+.fieldcontainer form > div:first-child button:last-child:hover{
+  color: black;
   background-color: rgb(255, 255, 255, 0.9);
   width: 65px;
   height: 35px;
