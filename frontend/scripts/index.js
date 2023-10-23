@@ -45,7 +45,7 @@ localStorage.setItem("username", _username);
 formData = new FormData();
 formData.append('user_name', _username);
 formData.append('password', _password);
-console.log(formData)
+// console.log(formData)
 
     try {
         const response = await fetch('/login', {
@@ -106,20 +106,6 @@ window.onload = async function() {
 
     }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // function handleAuthRes(data) {

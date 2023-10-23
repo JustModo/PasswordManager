@@ -144,6 +144,8 @@ addentry.addEventListener('click', function() {
     entrywindow.style.display = "flex";
     const otherbutton = document.getElementById('submitdatabtn')
     const editbutton = document.getElementById('submiteditdatabtn')
+    const binbutton = document.getElementById('deletedata')
+    binbutton.style.display = "none"
     otherbutton.style.display = "block";
     editbutton.style.display = "none";
     const inputbox = document.getElementById("sitenamefield")
@@ -297,7 +299,7 @@ function showEditPage(field) {
     const binbutton = document.getElementById('deletedata')
     otherbutton.style.display = "none";
     editbutton.style.display = "block";
-    binbutton.style.display = "block"
+    binbutton.style.display = "block";
     const inputbox = document.getElementById("sitenamefield")
     const urlfield = document.getElementById("urlfield")
     inputbox.value = ''
@@ -405,13 +407,15 @@ async function deleteEntry() {
         });
         if(response.ok){
             console.log(`Deleted ${localStorage.getItem("editVal")}`)
-            entrywindow.style.display = "none"
             localStorage.removeItem("editVal")
             getData()
+            confirmation()
+            await delay(1000)
             const infobox = document.querySelector('.infobox')
             const infopanel = document.querySelector('.infopanel')
             const popupdivparent = document.querySelector('.popupdivparent')
             const popupdiv = document.querySelector('.popupdivchild')
+            entrywindow.style.display = "none"
             infobox.style.display = 'flex'
             infopanel.style.display = 'none'
             popupdivparent.style.display = "none"
@@ -563,6 +567,7 @@ async function editDataHandler(editdata) {
         confirmation()
         setTimeout(() => {
             entrywindow.style.display = "none"
+            binbutton.style.display = "none"
             localStorage.removeItem("editVal")
         }, 1000);
         const backbtn = document.getElementById('backbtn')

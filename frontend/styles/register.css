@@ -32,11 +32,13 @@ body {
   width: 450px;
   height: 400px;
   flex-direction: column;
-  padding: 70px;
+  padding: 20px;
+  padding-top: 70px;
   padding-bottom: 90px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.6);
   row-gap: 8px;
   border-radius: 50px;
+  flex-direction: column;
 }
 
 #register {
@@ -60,6 +62,7 @@ body {
   border-left: rgb(255, 255, 255, 0.2) 2px solid;
   border-radius: 10px;
   padding-left: 5px;
+  flex-shrink: 0;
 }
 
 .idiv p {
@@ -92,7 +95,10 @@ body {
   flex-direction: column;
   row-gap: 10px;
   justify-content: center;
+  align-items: center;
   padding: 7px;
+  width: 90%;
+  height: 40%;
 }
 
 .idiv p{
@@ -128,23 +134,32 @@ body {
 
 }
 
-
 .help div{
   display: flex;
   width: 50%;
   justify-content: center;
 }
 
+.error {
+  position: relative;
+  height: 20px;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .error label {
   position: absolute;
-  display: block;
+  display: inline-block;
   justify-content: center;
-  translate: -50% 3px;
   color: rgba(184, 156, 255, 0.9);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
   font-style: bold;
   font-weight: bold;
+  text-align: center;
+  padding: 5px;
 }
 
 a {
@@ -184,6 +199,5 @@ footer p{
   background-color: transparent;
   background-image: url('../assets/download.svg');
   background-size: cover;
-
   box-shadow: rgb(0, 0, 0) 0px 0px 10px;
 }
