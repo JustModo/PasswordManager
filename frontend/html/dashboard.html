@@ -243,7 +243,7 @@ p<!DOCTYPE html>
                             </div>
                             <div>
                                 <label id="greetname"></label>
-                                <label>Change Password</label>
+                                <a href="#" onclick="changePassConfirm()">Change Password</a>
                             </div>
 
                         </div>
@@ -284,6 +284,7 @@ p<!DOCTYPE html>
                             <input type="text" name="url" placeholder="Site URL" id="urlfield" value="https://">
                             <label></label>
                             <button type="button" onclick="validateData()" id="submitdatabtn"></button>
+                            <button type="button" onclick="deleteEntryConfirm()" id="deletedata"></button>
                             <button type="button" onclick="validateDataEdit()" id="submiteditdatabtn">Save</button>
                         </div>
     
@@ -308,12 +309,6 @@ p<!DOCTYPE html>
                     </form>
                 </div>
 
-                <!-- <div class="confirmdivparent">
-                    <div class="confirmdiv">
-                        <img src="../assets/tick.svg">
-                    </div>
-                </div> -->
-
             </div>
         </div>
 
@@ -323,7 +318,22 @@ p<!DOCTYPE html>
             </div>
         </div>
 
+<<<<<<< HEAD
 >>>>>>> b6d960f (Add Add Entry Page & CSS Animations)
+=======
+        <div class="popupdivparent">
+            <div class="popupdiv">
+                <div>
+                    <button onclick="closePopup()" id="closepopup"></button>
+                </div>
+                <div class="popupdivchild">
+
+                </div>
+            </div>
+
+        </div>
+
+>>>>>>> 19834dd (Add Change Password Function + Dashboard Complete)
     </div>
     <script defer src="../scripts/dashboard.js"></script>
 </body>
