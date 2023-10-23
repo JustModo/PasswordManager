@@ -44,7 +44,7 @@ const contentbox = document.querySelector('.objcontainer')
 function updateListGui(field) {
         let content = contentbox.innerHTML.concat(
             `
-            <div class="fielddiv">
+            <div class="fielddiv" id="${field["fieldname"]}">
             <img id ="${field["fieldname"]}" src="${field["url"]}" onerror="this.onerror=null; this.src='../assets/internet.svg'">
             <p>${field["fieldname"]}</p>
              <button id="${field["fieldname"]}" class="entryview"></button>
@@ -58,6 +58,12 @@ function updateListGui(field) {
 
         let btns = document.querySelectorAll('.entryview')
         let editbtns = document.querySelectorAll('.editbutton')
+        let divs = document.querySelectorAll('.fielddiv')
+        divs.forEach(div => {
+            div.addEventListener('click', () => {
+                updateInfoGui(div.id);
+            });
+        });
         btns.forEach(btn => {
             btn.addEventListener('click', () => {
                 updateInfoGui(btn.id);
@@ -150,6 +156,8 @@ addentry.addEventListener('click', function() {
 const exitentrywin = document.getElementById('backbtn')
 
 exitentrywin.addEventListener('click', function() {
+    const binbutton = document.getElementById('deletedata')
+    binbutton.style.display = "none"
     entrywindow.style.display = "none"
     localStorage.removeItem("editVal")
 })
@@ -160,9 +168,17 @@ function addFieldLogic() {
     const forminputs = document.querySelectorAll('.inputfieldpanel div input[type="text"]')
     const formcheckbox = document.querySelectorAll('.inputfieldpanel div input[type="checkbox"]')
     formcheckbox.forEach((checkbox, index) => {
-        forminputs[index].disabled = true
-        forminputs[index].value = ''
-        checkbox.checked = false;
+        if(forminputs[index].id=="u_input" || forminputs[index].id=="p_input"){
+            forminputs[index].disabled = false
+            forminputs[index].value = ''
+            checkbox.checked = true;
+        } 
+        else {
+            forminputs[index].disabled = true
+            forminputs[index].value = ''
+            checkbox.checked = false;
+        }
+
     })
     formcheckbox.forEach((checkbox, index) =>
         checkbox.addEventListener('change', function(){
@@ -195,9 +211,7 @@ function formatData(userdata) {
     })
     formData.append("entry_name", sitename)
     formData.append("fields", JSON.stringify(objData))
-    // jsondata[sitename] = jsonuserdata
-    // sendData(JSON.stringify(jsondata))
-    console.log(sitename)
+    // console.log(sitename)
     sendData(formData)
 }
 
@@ -280,8 +294,10 @@ function showEditPage(field) {
     entrywindow.style.display = "flex";
     const otherbutton = document.getElementById('submitdatabtn')
     const editbutton = document.getElementById('submiteditdatabtn')
+    const binbutton = document.getElementById('deletedata')
     otherbutton.style.display = "none";
     editbutton.style.display = "block";
+    binbutton.style.display = "block"
     const inputbox = document.getElementById("sitenamefield")
     const urlfield = document.getElementById("urlfield")
     inputbox.value = ''
@@ -377,9 +393,118 @@ function validateEditUrl(){
     }
 }
 
+//----------------------------------------------------------------------------------------- Delete Entry Button
+
+async function deleteEntry() {
+    const formData = new FormData()
+    formData.append("entry_name", localStorage.getItem("editVal"))
+    try {
+        const response = await fetch('/delete_entry', {
+            method: "POST",
+            body: formData 
+        });
+        if(response.ok){
+            console.log(`Deleted ${localStorage.getItem("editVal")}`)
+            entrywindow.style.display = "none"
+            localStorage.removeItem("editVal")
+            getData()
+            const infobox = document.querySelector('.infobox')
+            const infopanel = document.querySelector('.infopanel')
+            const popupdivparent = document.querySelector('.popupdivparent')
+            const popupdiv = document.querySelector('.popupdivchild')
+            infobox.style.display = 'flex'
+            infopanel.style.display = 'none'
+            popupdivparent.style.display = "none"
+            popupdiv.innerHTML = ''
+        }
+        if(!response.ok){
+            isError = true
+            const errorMessage = await response.text();
+                errorlabel.textContent = errorMessage
+                setTimeout(()=>{
+                    errorlabel.textContent = ''
+                },3000)
+                throw new Error(errorMessage);
+        }
+    } catch(error){
+        console.error(error)
+    }
+}
+
+//----------------------------------------------------------------------------------------- Delete Entry Popup
+
+function deleteEntryConfirm() {
+    const popupdivparent = document.querySelector('.popupdivparent')
+    const popupdiv = document.querySelector('.popupdivchild')
+    popupdivparent.style.display = "flex"
+    popupdiv.innerHTML = "<div class='c1f'><label>Are You Sure?</label></div>\n <div class='c1l'><button onclick='deleteEntry()'>Yes</button> <button onclick='closePopup()'>No</button></div>"
+}
+
+//----------------------------------------------------------------------------------------- Change Pass Entry Popup
+
+function changePassConfirm() {
+    const popupdivparent = document.querySelector('.popupdivparent')
+    const popupdiv = document.querySelector('.popupdivchild')
+    popupdivparent.style.display = "flex"
+    popupdiv.innerHTML = "<div class='c2'><input id='c2i1' placeholder='Enter Password' type='password'></input><input id='c2i2' placeholder='Confirm Password' type='password'></input><label id='passerrlabel'></label><button id='changepassbtn' onclick='changePass()'>Submit</button></div>"
+}
+
+function changePass() {
+    const password = document.getElementById('c2i1').value
+    const confirmpassword = document.getElementById('c2i2').value
+    const errlabel = document.getElementById('passerrlabel')
+    if(password != confirmpassword){
+        errlabel.textContent = "Password Must Match!"
+        setTimeout(()=>{
+            errlabel.textContent = ''
+        },3000)
+    } 
+    else if(password==""|| confirmpassword==""){
+        errlabel.textContent = "Password Can't Be Blank!"
+        setTimeout(()=>{
+            errlabel.textContent = ''
+        },3000)
+    }
+    else if(password == confirmpassword){
+        sendPass(password)
+    }
+}
+
+async function sendPass(password) {
+    const errlabel = document.getElementById('passerrlabel')
+    const formData = new FormData()
+    formData.append("password", password)
+    try {
+        const response = await fetch('/change_password', {
+            method: "POST",
+            body: formData 
+        });
+        if(response.ok){
+            console.log(`Password Changed!`)
+        }
+        if(!response.ok){
+            isError = true
+            const errorMessage = await response.text();
+                errlabel.textContent = errorMessage
+                setTimeout(()=>{
+                    errlabel.textContent = ''
+                },3000)
+                throw new Error(errorMessage);
+        }
+    } catch(error){
+        console.error(error)
+    }   
+}
+
 //----------------------------------------------------------------------------------------- Edit Data Submission Logic
 
 function editData() {
+    const backbtn = document.getElementById('backbtn')
+    const submitbtn = document.getElementById('submiteditdatabtn')
+    const binbutton = document.getElementById('deletedata')
+    binbutton.disabled = true
+    backbtn.disabled = true
+    submitbtn.disabled = true
     const form = document.getElementById('formdata')
     const formeditdata = new FormData(form)
     editDataHandler(formeditdata)
@@ -407,7 +532,7 @@ async function editDataHandler(editdata) {
         }
     }
 
-    console.log(objData)
+    // console.log(objData)
     isError = false
 
     for(let field in objData){
@@ -440,6 +565,12 @@ async function editDataHandler(editdata) {
             entrywindow.style.display = "none"
             localStorage.removeItem("editVal")
         }, 1000);
+        const backbtn = document.getElementById('backbtn')
+        const submitbtn = document.getElementById('submiteditdatabtn')
+        const binbutton = document.getElementById('deletedata')
+        binbutton.disabled = false
+        backbtn.disabled = false
+        submitbtn.disabled = false
     }
 }
 
@@ -537,7 +668,7 @@ async function changeEntryName(entryname, sitename) {
 //----------------------------------------------------------------------------------------- Confirmation Box
 
 function confirmation() {
-    console.log('Confirmed')
+    // console.log('Confirmed')
     const confirm = document.querySelector('.confirmdivparent')
     const tick = document.querySelector('.confirmdiv img')
     const confirmbox = document.querySelector('.confirmdiv')
@@ -626,7 +757,7 @@ function updateInfoGui(field) {
 
 const greettext = document.querySelector('#greetname')
 const masterusername = localStorage.getItem("username");
-console.log(masterusername)
+console.log(`Logged in as: ${masterusername}`)
 
 function greet(){
     greettext.textContent = masterusername;
@@ -639,6 +770,14 @@ function removeBox() {
     const infopanel = document.querySelector('.infopanel')
     infobox.style.display = 'none'
     infopanel.style.display = 'flex'
+}
+//----------------------------------------------------------------------------------------- Close Popup Box Logic
+
+function closePopup() {
+    const popupdivparent = document.querySelector('.popupdivparent')
+    const popupdiv = document.querySelector('.popupdivchild')
+    popupdivparent.style.display = "none"
+    popupdiv.innerHTML = ""
 }
 
 //----------------------------------------------------------------------------------------- Logout
@@ -661,7 +800,7 @@ async function logOut() {
 const logoutbtn = document.querySelector("#logout")
 
 logoutbtn.addEventListener('click', () => {
-    console.log("logging out")
+    console.log("Logging out")
     localStorage.clear()
     logOut()
 })
