@@ -485,6 +485,12 @@ async function sendPass(password) {
         });
         if(response.ok){
             console.log(`Password Changed!`)
+            confirmation()
+            await delay(1000)
+            const popupdivparent = document.querySelector('.popupdivparent')
+            const popupdiv = document.querySelector('.popupdivchild')
+            popupdivparent.style.display = "none"
+            popupdiv.innerHTML = ''
         }
         if(!response.ok){
             isError = true
