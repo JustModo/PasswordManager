@@ -29,7 +29,7 @@ async function createUser(username,password) {
     formData.append("password", password)
 
     try {
-        const response = await fetch('/add_user', {
+        const response = await fetch(`http://127.0.0.1:${PORT}/add_user`, {
             method: "POST",
             body: formData
         });
@@ -55,7 +55,7 @@ async function Login(username,password){
     formData.append('password', password);
 
     try {
-        const response = await fetch('/login', {
+        const response = await fetch(`http://127.0.0.1:${PORT}/login`, {
             method: "post",
             body: formData
         });

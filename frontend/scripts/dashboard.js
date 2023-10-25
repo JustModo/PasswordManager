@@ -14,9 +14,11 @@
 
 //-----------------------------------------------------------------------------------------(Getting Data)
 
+const PORT = 5000;
+
 async function getData() {
         try {
-            let response = await fetch('/get_data', {
+            let response = await fetch(`http://127.0.0.1:${PORT}/get_data`, {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json'
@@ -223,7 +225,7 @@ const errorlabel = document.querySelector('.fieldcontainer label')
 
 async function sendData(formData){
     try {
-        const response = await fetch('/add_entry', {
+        const response = await fetch(`http://127.0.0.1:${PORT}/add_entry`, {
             method: "POST",
             body: formData 
         });
@@ -401,7 +403,7 @@ async function deleteEntry() {
     const formData = new FormData()
     formData.append("entry_name", localStorage.getItem("editVal"))
     try {
-        const response = await fetch('/delete_entry', {
+        const response = await fetch(`http://127.0.0.1:${PORT}/delete_entry`, {
             method: "POST",
             body: formData 
         });
@@ -479,7 +481,7 @@ async function sendPass(password) {
     const formData = new FormData()
     formData.append("password", password)
     try {
-        const response = await fetch('/change_password', {
+        const response = await fetch(`http://127.0.0.1:${PORT}/change_password`, {
             method: "POST",
             body: formData 
         });
@@ -599,7 +601,7 @@ async function addNewField(sitename, field, value) {
     formData.append("field_value", value)
 
     try {
-        const response = await fetch('/add_field', {
+        const response = await fetch(`http://127.0.0.1:${PORT}/add_field`, {
             method: "POST",
             body: formData 
         });
@@ -628,7 +630,7 @@ async function editFieldValue(sitename, field, value) {
     formData.append("field_value", value)
 
     try {
-        const response = await fetch('/edit_field_value', {
+        const response = await fetch(`http://127.0.0.1:${PORT}/edit_field_value`, {
             method: "POST",
             body: formData 
         });
@@ -655,7 +657,7 @@ async function changeEntryName(entryname, sitename) {
     formData.append("new_entry_name", sitename)
 
     try {
-        const response = await fetch('/edit_entry_name', {
+        const response = await fetch(`http://127.0.0.1:${PORT}/edit_entry_name`, {
             method: "POST",
             body: formData 
         });
@@ -795,7 +797,7 @@ function closePopup() {
 
 async function logOut() {
     try{
-        await fetch("/logout", {
+        await fetch(`http://127.0.0.1:${PORT}/logout`, {
             method:'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -1,3 +1,5 @@
+const PORT = 5000;
+
 let loginb = document.getElementById("loginb");
 
 loginb.addEventListener("click", validateLogin);
@@ -48,7 +50,7 @@ formData.append('password', _password);
 // console.log(formData)
 
     try {
-        const response = await fetch('/login', {
+        const response = await fetch(`http://127.0.0.1:${PORT}/login`, {
             method: "post",
             body: formData
         });
@@ -88,7 +90,7 @@ register.addEventListener("click", function(event) {
 
 window.onload = async function() {
     try {
-        let response = await fetch('/get_data', {
+        let response = await fetch(`http://127.0.0.1:${PORT}/get_data`, {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'

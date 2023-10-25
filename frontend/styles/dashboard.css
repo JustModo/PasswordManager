@@ -1193,7 +1193,6 @@ footer p{
 @media (max-width: 860px) {
   .container{
     position: fixed;
-    width: 774px;
   }
 }
 
