@@ -1,0 +1,163 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: dimgrey;
+  display: flex;
+  margin-top: 25px;
+  align-items: center;
+  justify-content: center;
+  background-image: url("../assets/bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed
+}
+
+.wrapper {
+  display: flex;
+  width: 90vw;
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.container {
+  display: flex;
+  background-color: transparent;
+  backdrop-filter: blur(20px);
+  justify-content: center;
+  align-items: center;
+  width: 450px;
+  height: 400px;
+  flex-direction: column;
+  padding: 70px;
+  padding-bottom: 90px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.6);
+  row-gap: 8px;
+  border-radius: 50px;
+}
+
+#login {
+  display: block;
+  text-align: center;
+  font-family: 'Pixelify Sans', cursive;
+  font-size: 50px;
+  text-shadow: 2px 2px 5px rgb(0, 0, 0);
+  color: white;
+}
+
+.input {
+  width: 300px;
+  height: 30px;
+  background-color: transparent;
+  color: rgb(255, 255, 255, 0.8);
+  box-shadow: 2px 2px 3px rgb(0, 0, 0, 0.5);
+  border: none;
+  border-top: rgba(255, 255, 255, 0.2) 2px solid;
+  border-left: rgb(255, 255, 255, 0.2) 2px solid;
+  border-radius: 10px;
+  padding-left: 5px;
+}
+
+.idiv p {
+  color: white;
+  font-family: 'Pixelify Sans', cursive;
+  margin-left: 5px;
+}
+
+#username::placeholder {
+  color: rgb(255, 255, 255, 0.5);
+  padding-left: 5px;
+}
+
+#password::placeholder {
+  color: rgb(255, 255, 255, 0.5);
+  padding-left: 5px;
+}
+
+.idiv {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  justify-content: center;
+  padding: 7px;
+}
+
+.idiv p{
+  padding: none;
+  margin: none;
+  display: absolute;
+  translate: 0px 12px;
+}
+
+#loginb {
+  background-color: transparent;
+  color: rgb(255, 255, 255, 0.8);
+  padding: 7px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 150px;
+  box-shadow: 2px 2px 5px rgb(0, 0, 0, 0.5);
+  translate: 0px -5px;
+  font-family: 'Pixelify Sans', cursive;
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+#loginb:active {
+  background-color: rgb(155, 155, 155, 0.3);
+}
+
+.help {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.help div{
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+}
+
+.error label {
+  position: absolute;
+  display: block;
+  justify-content: center;
+  translate: -50% 3px;
+  color: rgba(184, 156, 255, 0.9);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-style: bold;
+  font-weight: bold;
+}
+
+a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+}
+
+a:active {
+  color: rgb(196, 196, 196, 10);
+}
+
+footer{
+  position: fixed;
+  bottom: 0px;
+  background-color: rgb(12, 12, 12);
+  height: 50px;
+  width: 100vw;
+}
+
+footer p{
+  color: white;
+  text-align: center;
+}
