@@ -50,6 +50,7 @@ formData.append('password', _password);
     try {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         const response = await fetch('http://127.0.0.1:5000/', {
             method: 'POST',
             headers: {
@@ -71,6 +72,10 @@ formData.append('password', _password);
         const response = await fetch('/login', {
             method: "post",
 >>>>>>> a260428 (Dashboard Entry Update)
+=======
+        const response = await fetch('/login', {
+            method: "post",
+>>>>>>> 0d9e690db10b6dfbef3d9aa4316e52d1e8cb8f6a
             body: formData
         });
         
@@ -93,6 +98,7 @@ formData.append('password', _password);
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         console.log(`Got token: ${token}`)
     } catch (error) {
         console.error('Error:', error.message);
@@ -107,10 +113,15 @@ formData.append('password', _password);
 =======
         console.error('Error:', error.message);
 >>>>>>> d7982e1 (Add error message to login, Fix Internal Error 500)
+=======
+    } catch (error) {
+        console.error('Error:', error.message);
+>>>>>>> 0d9e690db10b6dfbef3d9aa4316e52d1e8cb8f6a
     }
 
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -127,6 +138,9 @@ function handleAuthRes(data) {
 =======
 
 >>>>>>> 106888c (Add input boxes for Add entry page)
+=======
+
+>>>>>>> 0d9e690db10b6dfbef3d9aa4316e52d1e8cb8f6a
 const register = document.getElementById("register");
 
 register.addEventListener("click", function(event) {
@@ -158,6 +172,7 @@ window.onload = async function() {
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 
@@ -175,6 +190,8 @@ window.onload = async function() {
 >>>>>>> 22cbef5 (Add all other pages)
 =======
 >>>>>>> 7afbaba (Finish Frontend)
+=======
+>>>>>>> 0d9e690db10b6dfbef3d9aa4316e52d1e8cb8f6a
 // function handleAuthRes(data) {
 //     if(data.token){
 //         localStorage.setItem('token', data.token);
@@ -184,6 +201,9 @@ window.onload = async function() {
 //     }
 // }
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> b1b896f (Add api request changes)
 =======
 >>>>>>> a260428 (Dashboard Entry Update)
+=======
+>>>>>>> 0d9e690db10b6dfbef3d9aa4316e52d1e8cb8f6a
