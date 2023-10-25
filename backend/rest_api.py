@@ -19,14 +19,11 @@ def handle_first_launched():
     if not path.exists(folder_path):
         mkdir(folder_path)
              
-<<<<<<< HEAD
-=======
 
 @app.route('/favicon.ico')
 def favicon() -> Response:
     favicon_path: str = path.join(app.root_path, '../frontend/static', 'favicon.ico')
     return send_file(favicon_path, mimetype='image/vnd.microsoft.icon')  
->>>>>>> d7982e1 (Add error message to login, Fix Internal Error 500)
 
 
 @app.route("/index.html")
@@ -469,10 +466,3 @@ class QueryHandler:
             )
         return Response(status=200)
 
-import os
-from os import path
-
-@app.route('/favicon.ico')
-def favicon():
-    favicon_path = os.path.join(app.root_path, 'static', 'favicon.ico')
-    return send_file(favicon_path, mimetype='image/vnd.microsoft.icon')  
