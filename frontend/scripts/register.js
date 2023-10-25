@@ -1,3 +1,4 @@
+
 const errlabel = document.getElementById('errlabel')
 
 function validateRegister() {

@@ -1,18 +1,12 @@
-<<<<<<< HEAD
-=======
 {
   "name": "unnamed-password-manager",
   "version": "1.0.0",
   "description": "Hi",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon devfolder/app.js"
+    "start": ""
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "cors": "^2.8.5"
-  }
+  "license": "ISC"
 }
->>>>>>> b1b896f (Add api request changes)

@@ -118,5 +118,3 @@ window.onload = async function() {
 //         console.error('Login Failed:', data.error)
 //     }
 // }
-
-

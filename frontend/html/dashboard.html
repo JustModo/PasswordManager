@@ -3,6 +3,13 @@
 <head>
     <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com; 
+    font-src 'self' https://fonts.gstatic.com; 
+    connect-src 'self' http://127.0.0.1:5000; 
+    style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; 
+    script-src 'self' 'unsafe-inline'; 
+    script-src-elem 'self' 'unsafe-inline';
+    img-src 'self' http://www.google.com/s2/favicons https://t1.gstatic.com https://t0.gstatic.com https://t2.gstatic.com">
     <title>DashBoard</title>
     <link rel="stylesheet" href="../styles/dashboard.css"/>
 </head>
@@ -165,4 +172,3 @@
 <footer><p>© 2023 Password Manager</p></footer>
 
 </html>
-

@@ -18,18 +18,6 @@ def handle_first_launched():
     folder_path = path.join(folder_path, "Unnamed_Password_Manager")
     if not path.exists(folder_path):
         mkdir(folder_path)
-             
-
-@app.route('/favicon.ico')
-def favicon() -> Response:
-    favicon_path: str = path.join(app.root_path, '../frontend/static', 'favicon.ico')
-    return send_file(favicon_path, mimetype='image/vnd.microsoft.icon')  
-
-
-@app.route("/index.html")
-def handle_index() -> Response:
-    index_path: str = path.join(app.root_path, "../frontend/html", "index.html")
-    return send_file(index_path, mimetype="text/html")
 
 
 @app.get("/")
@@ -466,3 +454,10 @@ class QueryHandler:
             )
         return Response(status=200)
 
+import os
+from os import path
+
+@app.route('/favicon.ico')
+def favicon():
+    favicon_path = os.path.join(app.root_path, 'static', 'favicon.ico')
+    return send_file(favicon_path, mimetype='image/vnd.microsoft.icon')  

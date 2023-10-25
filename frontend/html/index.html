@@ -3,6 +3,14 @@
 <html>
 <head>
   <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com; 
+  font-src 'self' https://fonts.gstatic.com; 
+  connect-src 'self' http://127.0.0.1:5000; 
+  style-src 'self' https://fonts.googleapis.com 'unsafe-inline';">
+<meta
+  http-equiv="X-Content-Security-Policy"
+  content="default-src 'self'; script-src 'self'"
+/>
   <link rel="stylesheet" href="../styles/index.css"/>
   <title>Login</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,9 +32,6 @@
             </div>
 
             <div class="help">
-                <div>
-                    <a href="" id="forgot_password">Forgot Password</a>
-                </div>
                 <div>
                     <a href="register.html" id="register">Register</a>
                 </div>
