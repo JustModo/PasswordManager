@@ -30,9 +30,9 @@ function validatePass() {
         }
     }
 
-function validateLogin() {
+async function validateLogin() {
     if(validateName() && validatePass()) {
-        getAuth();
+        await getAuth();
         return;
     }
 }

@@ -115,10 +115,10 @@ function getDisplayList(fieldnames,userdata){
 
 const search = document.getElementById('search');
 
-search.addEventListener('keyup', function() {
+search.addEventListener('keyup', async function() {
     let result = search.value;
     if(result == ""){
-        getData()
+        await getData()
     } else {
         getFilterList(result,JSON.parse(localStorage.getItem("userdata")))  
     }
@@ -196,13 +196,13 @@ function addFieldLogic() {
 
 //----------------------------------------------------------------------------------------- Form Data Logic
 
-function submitForm() {
+async function submitForm() {
     const form = document.getElementById('formdata')
     const formdata = new FormData(form)
-    formatData(formdata)
+    await formatData(formdata)
 }
 
-function formatData(userdata) {
+async function formatData(userdata) {
     const formData = new FormData()
     const objData = {}
     let sitename;
@@ -216,7 +216,7 @@ function formatData(userdata) {
     formData.append("entry_name", sitename)
     formData.append("fields", JSON.stringify(objData))
     // console.log(sitename)
-    sendData(formData)
+    await sendData(formData)
 }
 
 //----------------------------------------------------------------------------------------- Post Entry Data to API
@@ -235,7 +235,7 @@ async function sendData(formData){
                 entrywindow.style.display = "none"
                 localStorage.removeItem("editVal")
             }, 1000);
-            getData()
+            await getData()
         }
         if(!response.ok){
             const errorMessage = await response.text();
@@ -252,9 +252,9 @@ async function sendData(formData){
 
 //----------------------------------------------------------------------------------------- Form Data Validation Logic
 
-function validateData() {
+async function validateData() {
     if(validateSitename() && validateUrl())
-        submitForm();
+        await submitForm();
         return;
 }
 
@@ -358,9 +358,9 @@ function addFieldEditLogic(field){
 
 //----------------------------------------------------------------------------------------- Edit Data Validation
 
-function validateDataEdit() {
+async function validateDataEdit() {
     if(validateEditSitename() && validateEditUrl())
-        editData();
+        await editData();
         return;
 }
 
@@ -410,9 +410,8 @@ async function deleteEntry() {
         if(response.ok){
             console.log(`Deleted ${localStorage.getItem("editVal")}`)
             localStorage.removeItem("editVal")
-            getData()
+            await getData()
             confirmation()
-            await delay(1000)
             const infobox = document.querySelector('.infobox')
             const infopanel = document.querySelector('.infopanel')
             const popupdivparent = document.querySelector('.popupdivparent')
@@ -443,7 +442,7 @@ function deleteEntryConfirm() {
     const popupdivparent = document.querySelector('.popupdivparent')
     const popupdiv = document.querySelector('.popupdivchild')
     popupdivparent.style.display = "flex"
-    popupdiv.innerHTML = "<div class='c1f'><label>Are You Sure?</label></div>\n <div class='c1l'><button onclick='deleteEntry()'>Yes</button> <button onclick='closePopup()'>No</button></div>"
+    popupdiv.innerHTML = "<div class='c1f'><label>Are You Sure?</label></div>\n <div class='c1l'><button onclick='await deleteEntry()'>Yes</button> <button onclick='closePopup()'>No</button></div>"
 }
 
 //----------------------------------------------------------------------------------------- Change Pass Entry Popup
@@ -452,10 +451,10 @@ function changePassConfirm() {
     const popupdivparent = document.querySelector('.popupdivparent')
     const popupdiv = document.querySelector('.popupdivchild')
     popupdivparent.style.display = "flex"
-    popupdiv.innerHTML = "<div class='c2'><input id='c2i1' placeholder='Enter Password' type='password'></input><input id='c2i2' placeholder='Confirm Password' type='password'></input><label id='passerrlabel'></label><button id='changepassbtn' onclick='changePass()'>Submit</button></div>"
+    popupdiv.innerHTML = "<div class='c2'><input id='c2i1' placeholder='Enter Password' type='password'></input><input id='c2i2' placeholder='Confirm Password' type='password'></input><label id='passerrlabel'></label><button id='changepassbtn' onclick='await changePass()'>Submit</button></div>"
 }
 
-function changePass() {
+async function changePass() {
     const password = document.getElementById('c2i1').value
     const confirmpassword = document.getElementById('c2i2').value
     const errlabel = document.getElementById('passerrlabel')
@@ -472,7 +471,7 @@ function changePass() {
         },3000)
     }
     else if(password == confirmpassword){
-        sendPass(password)
+        await sendPass(password)
     }
 }
 
@@ -488,7 +487,6 @@ async function sendPass(password) {
         if(response.ok){
             console.log(`Password Changed!`)
             confirmation()
-            await delay(1000)
             const popupdivparent = document.querySelector('.popupdivparent')
             const popupdiv = document.querySelector('.popupdivchild')
             popupdivparent.style.display = "none"
@@ -510,7 +508,7 @@ async function sendPass(password) {
 
 //----------------------------------------------------------------------------------------- Edit Data Submission Logic
 
-function editData() {
+async function editData() {
     const backbtn = document.getElementById('backbtn')
     const submitbtn = document.getElementById('submiteditdatabtn')
     const binbutton = document.getElementById('deletedata')
@@ -519,7 +517,7 @@ function editData() {
     submitbtn.disabled = true
     const form = document.getElementById('formdata')
     const formeditdata = new FormData(form)
-    editDataHandler(formeditdata)
+    await editDataHandler(formeditdata)
 }
 
 let isError;
@@ -553,23 +551,19 @@ async function editDataHandler(editdata) {
             let value = objData[field]
 
             if(!(field in userdata[entryname])){
-                addNewField(entryname, field, value)
-                await delay(500)
+                await addNewField(entryname, field, value)
             } 
             else if(value != userdata[entryname][field]){
-                editFieldValue(entryname, field, value )
-                await delay(500)
+                await editFieldValue(entryname, field, value )
             } 
 
         }
     }
 
     if(sitename != entryname){
-        changeEntryName(entryname, sitename)
-        await delay(500)
+        await changeEntryName(entryname, sitename)
     }
-    getData()
-    await delay(100)
+    await getData()
     if(!isError){
         updateInfoGui(localStorage.getItem("editVal"))
         confirmation()
@@ -823,7 +817,7 @@ logoutbtn.addEventListener('click', () => {
 
 
 
-window.onload = function() {
-    getData();
+window.onload = async function() {
+    await getData();
     greet()
 };
