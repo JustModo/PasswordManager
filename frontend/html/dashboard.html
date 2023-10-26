@@ -81,7 +81,7 @@
                             </div>
                             <div>
                                 <label id="greetname"></label>
-                                <a href="#" onclick="changePassConfirm()">Change Password</a>
+                                <a href="#" onclick="await changePassConfirm()">Change Password</a>
                             </div>
 
                         </div>
@@ -114,9 +114,9 @@
                             <input type="text" name="sitename" placeholder="Site Name" id="sitenamefield" >
                             <input type="text" name="url" placeholder="Site URL" id="urlfield" value="https://">
                             <label></label>
-                            <button type="button" onclick="validateData()" id="submitdatabtn"></button>
-                            <button type="button" onclick="deleteEntryConfirm()" id="deletedata"></button>
-                            <button type="button" onclick="validateDataEdit()" id="submiteditdatabtn">Save</button>
+                            <button type="button" onclick="await validateData()" id="submitdatabtn"></button>
+                            <button type="button" onclick="await deleteEntryConfirm()" id="deletedata"></button>
+                            <button type="button" onclick="await validateDataEdit()" id="submiteditdatabtn">Save</button>
                         </div>
     
                         <div class="inputfieldpanel">
@@ -146,7 +146,7 @@
         <div class="popupdivparent">
             <div class="popupdiv">
                 <div>
-                    <button onclick="closePopup()" id="closepopup"></button>
+                    <button onclick="await closePopup()" id="closepopup"></button>
                 </div>
                 <div class="popupdivchild"></div>
             </div>
