@@ -1,7 +1,7 @@
 
 const errlabel = document.getElementById('errlabel')
 
-function validateRegister() {
+async function validateRegister() {
     const username = document.getElementById('username').value
     const password = document.getElementById('password').value
     const confirmpassword = document.getElementById('conpassword').value
@@ -19,7 +19,7 @@ function validateRegister() {
         }, 3000);
     }
     else if(password == confirmpassword && username!=''){
-        createUser(username,password)
+        await createUser(username,password)
     }
 }
 
@@ -35,7 +35,7 @@ async function createUser(username,password) {
         });
         if(response.ok) {
            console.log("User Created!")
-           Login(username,password)
+           await Login(username,password)
         } else if(!response.ok) {
             const errorMessage = await response.text();
             errlabel.textContentL = errorMessage;
