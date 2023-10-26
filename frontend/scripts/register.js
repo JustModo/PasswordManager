@@ -1,4 +1,4 @@
-
+const PORT = 5000
 const errlabel = document.getElementById('errlabel')
 
 function validateRegister() {
@@ -40,7 +40,7 @@ async function createUser(username,password) {
             const errorMessage = await response.text();
             errlabel.textContentL = errorMessage;
                 setTimeout(()=> {
-                    errorlabel.textContent = "";
+                    errlabel.textContent = "";
                 },3000)
             throw new Error(errorMessage);
         }

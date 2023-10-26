@@ -9,6 +9,9 @@ from data_handler import DataHandler
 
 app: Flask = Flask(__name__)
 
+if __name__ == "__main__":
+    app.run(debug=True)
+
 
 def handle_first_launched():
     """
